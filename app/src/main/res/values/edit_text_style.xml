@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_sdp">5dp</dimen>
+    <dimen name="margin_top_email">20dp</dimen>
+    <dimen name="margin_top_password">5dp</dimen>
+    <dimen name="box_stroke_width">2dp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="text_corner_radius">25dp</dimen>
+    <style name="Button4">
+        <item name="cornerSize">40%</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ExtraText">
+    <item
+        android:id="@+id/nav_appointments"
+        android:title="Appointments "
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_members"
+        android:title="Members"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/nav_massages"
+        android:title="Massages"
+        tools:ignore="HardcodedText"/> >
+
+    <item
+        android:id="@+id/nav_workout_exercises"
+        android:title="Workout &amp; exercises"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/nav_diet_plans"
+        android:title="Diet plans"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile"
+        tools:ignore="HardcodedText" />
+
+    <item
+        android:id="@+id/nav_achievements"
+        android:title="Achievements"
+        tools:ignore="HardcodedText" />
+
+</menu>

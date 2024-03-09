@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="text">#7D7D7D</color>
+    <color name="dark_blue">#191645</color>
+    <color name="back_ground">#EDEBEB</color>
+    <color name="dark_cyan">#029791</color>
+    <color name="greenish_cyan">#43C6AC</color>
+    <color name="hint_color">#4E4A4A</color>
+    <color name="edit_text_background">#E3E3E3</color>
+
+    <color name="text_bg">#E3E3E3</color>
+
+    <color name="active">#459A15</color>
+    <color name="notactive">#CD080B</color>
+    <color name="navigation_title">#191645</color>
+    <color name="card_view">#F5F3F3</color>
+
+    <color name="your_button_color">#285467</color>
+    <color name="your_track_color">#CDDC39</color>
+
+    <color name="grey">#808080</color>
+    <color name="lavender">#8692f7</color>
+
+
+</resources>
