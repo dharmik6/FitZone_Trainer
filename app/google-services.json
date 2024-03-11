@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "896134448044",
+    "project_id": "fit-zone-45762",
+    "storage_bucket": "fit-zone-45762.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896134448044:android:bacbdbdf4e9f406cc87009",
+        "android_client_info": {
+          "package_name": "com.example.fitzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896134448044-1b36fe0gqjq95v4m853vbkq6kd1feabm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYRZxybmka_8cWxrggBhySR1tcVu7DGDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896134448044-1b36fe0gqjq95v4m853vbkq6kd1feabm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896134448044:android:b96d75cece7669b9c87009",
+        "android_client_info": {
+          "package_name": "com.example.fitzoneadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896134448044-1b36fe0gqjq95v4m853vbkq6kd1feabm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYRZxybmka_8cWxrggBhySR1tcVu7DGDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896134448044-1b36fe0gqjq95v4m853vbkq6kd1feabm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896134448044:android:3251f999bbc91a67c87009",
+        "android_client_info": {
+          "package_name": "com.example.fitzonetrainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896134448044-1b36fe0gqjq95v4m853vbkq6kd1feabm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYRZxybmka_8cWxrggBhySR1tcVu7DGDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896134448044-1b36fe0gqjq95v4m853vbkq6kd1feabm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
