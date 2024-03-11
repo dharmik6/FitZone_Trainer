@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="activity_array">
+        <item>Beginner</item>
+        <item>Intermediate</item>
+        <item>Advance</item>
+    </string-array>
+
+<string-array name="specialization_array">
+        <item>Strength and conditioning</item>
+        <item>Weight loss</item>
+        <item>Muscle building</item>
+        <item>Flexibility and mobility</item>
+        <item>Yoga</item>
+    </string-array>
+
+    <string-array name="goal_array">
+        <item>Lose weight</item>
+        <item>Get fitter</item>
+        <item>Gain more flexible</item>
+    </string-array>
+
+    <string-array name="exe_array">
+        <item>Chest</item>
+        <item>Back</item>
+        <item>Arms biceps </item>
+        <item>Arms triceps</item>
+        <item>Legs calves</item>
+        <item>Legs hamstrings</item>
+        <item>Legs quadriceps</item>
+        <item>Core abdominals</item>
+        <item>Core lowerback</item>
+    </string-array>
+
+</resources>

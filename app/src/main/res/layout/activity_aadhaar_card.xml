@@ -112,8 +112,8 @@
                         android:layout_below="@id/text">
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/demo2"
+                            android:layout_height="250dp"
+                            android:src="@drawable/default_image"
                             android:maxHeight="200dp"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>
@@ -186,8 +186,8 @@
                         android:layout_below="@id/text2">
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/demo2"
+                            android:layout_height="250dp"
+                            android:src="@drawable/default_image"
                             android:maxHeight="200dp"
                             tools:ignore="ContentDescription" />
                     </LinearLayout>

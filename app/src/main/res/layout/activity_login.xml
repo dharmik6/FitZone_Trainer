@@ -167,7 +167,7 @@
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/id_email"
+                            android:id="@+id/tr_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -195,7 +195,7 @@
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/id_pass"
+                            android:id="@+id/tr_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"

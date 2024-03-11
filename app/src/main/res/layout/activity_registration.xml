@@ -108,6 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
@@ -165,12 +166,12 @@
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/id_name"
+                            android:id="@+id/trainer_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:paddingStart="15dp"
                             android:inputType="textEmailAddress"
+                            android:paddingStart="15dp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_size"
                             android:textStyle="bold"
@@ -192,7 +193,7 @@
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/id_email"
+                            android:id="@+id/member_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -219,7 +220,7 @@
                         tools:ignore="HardcodedText">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/id_pass"
+                            android:id="@+id/member_pass"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -230,46 +231,7 @@
                             android:textStyle="bold"
                             tools:ignore="RtlSymmetry,TextContrastCheck" />
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="30dp"
-                            android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <CheckBox
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentStart="true"/>
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="12dp"
-                                    android:text="@string/Terms_conditions"
-                                    android:layout_marginStart="50dp"
-                                    android:layout_alignParentStart="true"
-                                    android:textSize="14sp"
-                                    android:fontFamily="@font/nunito_bold"/>
-
-                            </RelativeLayout>
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/read_more"
-                                android:layout_marginTop="12dp"
-                                android:layout_marginEnd="10dp"
-                                android:textSize="14sp"
-                                android:fontFamily="@font/nunito_bold"
-                                android:textColor="@color/dark_cyan"
-                                android:layout_alignParentEnd="true"
-                                tools:ignore="ObsoleteLayoutParam,RelativeOverlap" />
-                        </RelativeLayout>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -296,7 +258,37 @@
                         tools:ignore="HardcodedText,TouchTargetSizeCheck" />
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunito_semi_bold"
+                            android:text="Alrady have Account !"
+                            android:textSize="16sp"
+                            tools:ignore="HardcodedText" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/login_account"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/nunito_semi_bold"
+                            android:text="Login now"
+                            android:textColor="@color/dark_cyan"
+                            android:textSize="16sp"
+                            tools:ignore="HardcodedText,ObsoleteLayoutParam" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
