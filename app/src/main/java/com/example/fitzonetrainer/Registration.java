@@ -62,6 +62,7 @@ public class Registration extends AppCompatActivity {
         String name = trainer_name.getText().toString().trim();
         String email = trainer_email.getText().toString().trim();
         String password = trainer_pass.getText().toString().trim();
+        String isApprove =new String("false")  ;
 
         if (TextUtils.isEmpty(name)) {
             trainer_name.setError("Please enter your name");
@@ -95,6 +96,7 @@ public class Registration extends AppCompatActivity {
                         Map<String, Object> userData = new HashMap<>();
                         userData.put("name", name);
                         userData.put("email", email);
+                        userData.put("is_approve", isApprove);
 
                         // Add the user to Firestore with the generated UID
                         db.collection("trainers")

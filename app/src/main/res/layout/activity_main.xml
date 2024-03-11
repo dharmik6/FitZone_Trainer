@@ -19,8 +19,9 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_bar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="?attr/actionBarSize"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
@@ -46,10 +47,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginStart="20dp"
-                android:layout_toStartOf="@+id/imageView"
+                android:layout_toStartOf="@+id/show_menu"
                 android:layout_toEndOf="@+id/show_menu"
                 android:fontFamily="@font/opensans_bold"
-                android:text="Fit Zone"
+                android:text="FitZone"
                 android:textColor="@color/black"
                 android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -58,7 +59,7 @@
                 tools:ignore="HardcodedText" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/notification"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginHorizontal="20dp"
@@ -81,14 +82,18 @@
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_bar">
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:ignore="SpeakableTextPresentCheck">
-
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                tools:ignore="SpeakableTextPresentCheck,UselessParent">
 
                 <FrameLayout
                     android:id="@+id/fragment_container"
@@ -97,7 +102,7 @@
                     tools:ignore="ScrollViewSize" />
 
             </ScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
     </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationview"
