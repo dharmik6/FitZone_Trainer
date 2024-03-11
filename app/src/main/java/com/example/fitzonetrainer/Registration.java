@@ -23,23 +23,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Registration extends AppCompatActivity {
-    AppCompatTextView loginAccount ;
     TextInputEditText trainer_name, trainer_email, trainer_pass;
     AppCompatButton btn_registration;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
-        loginAccount = findViewById(R.id.login_account);
-        loginAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent int1 = new Intent(Registration.this ,Login.class);
-            }
-        });
 
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
@@ -62,7 +54,7 @@ public class Registration extends AppCompatActivity {
         String name = trainer_name.getText().toString().trim();
         String email = trainer_email.getText().toString().trim();
         String password = trainer_pass.getText().toString().trim();
-        String isApprove =new String("false")  ;
+        boolean isActive = false;
 
         if (TextUtils.isEmpty(name)) {
             trainer_name.setError("Please enter your name");
@@ -96,7 +88,8 @@ public class Registration extends AppCompatActivity {
                         Map<String, Object> userData = new HashMap<>();
                         userData.put("name", name);
                         userData.put("email", email);
-                        userData.put("is_approve", isApprove);
+                        userData.put("password", password);
+                        userData.put("is_active", isActive);
 
                         // Add the user to Firestore with the generated UID
                         db.collection("trainers")
