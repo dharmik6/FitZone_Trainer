@@ -72,7 +72,7 @@
             tools:ignore="MissingConstraints,UselessParent">
 
             <com.mancj.materialsearchbar.MaterialSearchBar
-                android:id="@+id/searchbar"
+                android:id="@+id/wor_exe_searchbar"
                 style="@style/MaterialSearchBarLight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -113,6 +113,7 @@
                     tools:ignore="UselessLeaf,UselessParent">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/edit_exe_tr"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollbars="vertical"

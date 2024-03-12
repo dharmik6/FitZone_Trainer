@@ -16,10 +16,38 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UselessLeaf">
 
+        <RelativeLayout
+            android:id="@+id/ll_Search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,UselessParent">
+
+            <com.mancj.materialsearchbar.MaterialSearchBar
+                android:id="@+id/exe_searchbar"
+                style="@style/MaterialSearchBarLight"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                app:mt_hint="Search"
+                android:background="@drawable/search_bg"
+                app:mt_maxSuggestionsCount="10"
+                android:pointerIcon="crosshair"
+                tools:ignore="MissingClass,MissingConstraints" />
+
+        </RelativeLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="?attr/actionBarSize"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -48,7 +76,7 @@
                 android:layout_toEndOf="@+id/back"
                 android:fontFamily="@font/opensans_bold"
                 android:gravity="center"
-                android:text="Exercises List"
+                android:text="@string/exercises_list"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,36 +84,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="HardcodedText" />
 
+
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <RelativeLayout
-            android:id="@+id/ll_Search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/linearLayout"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints,UselessParent">
-
-            <com.mancj.materialsearchbar.MaterialSearchBar
-                android:id="@+id/searchbar"
-                style="@style/MaterialSearchBarLight"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                app:mt_hint="Search"
-                android:background="@drawable/search_bg"
-                app:mt_maxSuggestionsCount="10"
-                android:pointerIcon="crosshair"
-                tools:ignore="MissingClass,MissingConstraints" />
-
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_add"
@@ -97,6 +108,7 @@
 
 
             <LinearLayout
+                android:id="@+id/add_exe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -116,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/nunito_bold"
-                    android:text="Exercise"
+                    android:text="@string/add_exercise"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:fontFamily="@font/nunito_bold"
@@ -151,6 +163,7 @@
                     tools:ignore="UselessLeaf,UselessParent">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/exe_recyc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollbars="vertical"

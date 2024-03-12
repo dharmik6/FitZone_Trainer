@@ -1,70 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/back_ground"
+    android:orientation="vertical"
     tools:context=".UpdateDiet">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:background="@color/dark_blue"
         android:layout_width="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
 
+        <!-- Back Button -->
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/back_press"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_arrow_small_left"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="ContentDescription" />
 
+        <!-- Title -->
         <TextView
             android:id="@+id/text_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center"
-            android:layout_toStartOf="@+id/back"
-            android:layout_toEndOf="@+id/back"
-            android:fontFamily="@font/opensans_bold"
             android:text="Update Diet"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintStart_toEndOf="@id/back_press"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- ScrollView -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"
-        tools:ignore="SpeakableTextPresentCheck">
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        tools:ignore="ScrollViewCount">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="ObsoleteLayoutParam,ScrollViewSize">
+            android:layout_height="wrap_content"
+            tools:ignore="ObsoleteLayoutParam">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:ignore="MissingConstraints">
 
@@ -100,7 +98,7 @@
                                 android:layout_height="200dp">
 
                                 <ImageView
-                                    android:id="@+id/exe_image"
+                                    android:id="@+id/update_image"
                                     android:layout_width="300dp"
                                     android:layout_height="200dp"
                                     android:layout_centerHorizontal="true"
@@ -112,7 +110,7 @@
                         </RelativeLayout>
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/exe_camera"
+                            android:id="@+id/update_camera"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:cardCornerRadius="40dp"
@@ -120,7 +118,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentEnd="true"
                             android:layout_marginTop="150dp"
-                            android:layout_marginEnd="40dp"
+                            android:layout_marginEnd="50dp"
                             android:backgroundTint="#3D5872"
                             android:background="@drawable/camera_bg">
 
@@ -146,13 +144,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/profile_layout"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="10dp"
                     android:orientation="vertical">
 
@@ -162,6 +160,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_marginVertical="20dp"
                         android:backgroundTint="@color/card_view"
                         android:elevation="10dp"
                         android:shadowColor="@color/black"
@@ -186,23 +185,18 @@
                                 android:textStyle="bold"
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:layout_width="match_parent"
+                            <androidx.appcompat.widget.AppCompatCheckedTextView
+                                android:id="@+id/update_name"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20sp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginEnd="15dp"
-                                android:background="@drawable/text_bg"
+                                android:layout_marginStart="25dp"
+                                android:layout_marginTop="20dp"
                                 android:fontFamily="@font/opensans_bold"
-                                android:hint="@string/Name"
-                                android:inputType="text"
-                                android:padding="10dp"
-                                android:paddingStart="15dp"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/text"
-                                android:textSize="18sp"
-                                app:cardCornerRadius="10dp"
-                                tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
+                                android:text="@string/Name"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:ignore="HardcodedText,RtlSymmetry" />
+
 
                             <androidx.appcompat.widget.AppCompatCheckedTextView
                                 android:layout_width="wrap_content"
@@ -210,22 +204,24 @@
                                 android:layout_marginStart="25dp"
                                 android:layout_marginTop="25dp"
                                 android:fontFamily="@font/opensans_bold"
-                                android:text="Description"
+                                android:text="@string/description"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/update_description"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="100dp"
                                 android:layout_marginStart="15dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginEnd="15dp"
+                                android:gravity="top"
                                 android:layout_marginBottom="20dp"
                                 android:background="@drawable/text_bg"
                                 android:fontFamily="@font/opensans_bold"
-                                android:hint="Description"
-                                android:inputType="phone"
+                                android:hint="Write here..."
+                                android:inputType="textMultiLine"
                                 android:padding="10dp"
                                 android:paddingStart="15dp"
                                 android:textColor="@color/black"
@@ -239,22 +235,6 @@
 
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="25dp"
-                        android:layout_marginVertical="40dp"
-                        android:layout_marginEnd="25dp"
-                        android:background="@drawable/btn_bg"
-                        android:elevation="@dimen/button_elevation"
-                        android:fontFamily="@font/opensans_bold"
-                        android:gravity="center"
-                        android:shadowColor="@color/black"
-                        android:text="Update"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/button_text_size"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
 
 
                 </LinearLayout>
@@ -262,9 +242,36 @@
 
             </RelativeLayout>
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Button Layout -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/update_but"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginVertical="30dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/btn_background"
+            android:elevation="@dimen/button_elevation"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:text="@string/update"
+            android:textColor="@color/white"
+            android:textSize="@dimen/button_text_size"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+</LinearLayout>
+
+

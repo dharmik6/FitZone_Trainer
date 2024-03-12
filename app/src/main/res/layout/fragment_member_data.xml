@@ -23,7 +23,7 @@
             tools:ignore="MissingConstraints,UselessParent">
 
             <com.mancj.materialsearchbar.MaterialSearchBar
-                android:id="@+id/rej_searchbar"
+                android:id="@+id/user_data_searchbar"
                 style="@style/MaterialSearchBarLight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -41,7 +41,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rej_searchbar">
+                android:layout_below="@+id/user_data_searchbar">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                     tools:ignore="UselessLeaf">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rec_rejected"
+                        android:id="@+id/data_recyc_members"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:scrollbars="vertical"

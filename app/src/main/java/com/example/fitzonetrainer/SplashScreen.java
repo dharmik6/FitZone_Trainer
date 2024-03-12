@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -16,17 +17,22 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         new Handler().postDelayed(() -> {
-            // on below line we are
-            // creating a new intent
-            Intent i = new Intent(SplashScreen.this, Login.class);
 
-            // on below line we are
-            // starting a new activity.
-            startActivity(i);
+            SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+            Boolean check = pref.getBoolean("flag", false);
 
-            // on the below line we are finishing
-            // our current activity.
+            Intent inext;
+            if (check) {
+                // User is logged in, navigate to home_page
+                inext = new Intent(SplashScreen.this, MainActivity.class);
+            } else {
+                // User is not logged in, navigate to login_page
+                inext = new Intent(SplashScreen.this, Login.class);
+            }
+
+            startActivity(inext);
             finish();
-        }, 4000);
+        }, 2001);
+
     }
 }

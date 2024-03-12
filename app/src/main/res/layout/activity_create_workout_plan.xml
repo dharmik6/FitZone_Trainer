@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/back_ground"
     android:orientation="vertical"
-    tools:context=".UpdateExercises">
+    tools:context=".CreateWorkoutPlan">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
@@ -18,7 +18,7 @@
 
         <!-- Back Button -->
         <ImageView
-            android:id="@+id/back_press"
+            android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="10dp"
@@ -36,14 +36,26 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
-            android:text="Update Exercises"
+            android:text="Create WorkoutPlan"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/back_press"
+            app:layout_constraintStart_toEndOf="@id/back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -61,15 +73,6 @@
             android:layout_marginTop="30dp"
             tools:ignore="UselessLeaf">
 
-            <RelativeLayout
-                android:id="@+id/profile_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints,ObsoleteLayoutParam,UselessLeaf">
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -106,7 +109,7 @@
                                 android:layout_height="wrap_content">
 
                                 <ImageView
-                                    android:id="@+id/exe_up_image"
+                                    android:id="@+id/plan_image"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_centerHorizontal="true"
@@ -118,7 +121,7 @@
                         </RelativeLayout>
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/exe_up_camera"
+                            android:id="@+id/plan_camera"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:cardCornerRadius="40dp"
@@ -187,22 +190,29 @@
                                 android:layout_marginTop="20dp"
                                 android:fontFamily="@font/opensans_bold"
                                 android:layout_marginStart="25dp"
-                                android:text="@string/Name"
+                                android:text="Workout plan name"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
-                            <androidx.appcompat.widget.AppCompatCheckedTextView
-                                android:id="@+id/exe_up_name"
-                                android:layout_width="wrap_content"
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/plan_name"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="15dp"
+                                android:background="@drawable/text_bg"
                                 android:fontFamily="@font/opensans_bold"
-                                android:layout_marginStart="25dp"
-                                android:text="@string/Name"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                tools:ignore="HardcodedText,RtlSymmetry" />
+                                android:hint="@string/equipment"
+                                android:inputType="textEmailAddress"
+                                android:padding="10dp"
+                                android:paddingStart="15dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/text"
+                                android:textSize="18sp"
+                                app:cardCornerRadius="10dp"
+                                tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
 
                             <!--                            <androidx.appcompat.widget.AppCompatEditText-->
                             <!--                                android:layout_width="match_parent"-->
@@ -228,18 +238,19 @@
                                 android:layout_marginTop="25dp"
                                 android:fontFamily="@font/opensans_bold"
                                 android:layout_marginStart="25dp"
-                                android:text="@string/body_part"
+                                android:text="Difficulty level"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <Spinner
-                                android:id="@+id/exe_up_spinner"
+                                android:id="@+id/plan_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="20dp"
                                 android:background="@drawable/text_bg"
                                 android:fontFamily="@font/opensans_bold"
                                 android:hint="@string/body_part"
@@ -252,71 +263,6 @@
                                 app:cardCornerRadius="10dp"
                                 tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
 
-                            <androidx.appcompat.widget.AppCompatCheckedTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="25dp"
-                                android:fontFamily="@font/opensans_bold"
-                                android:layout_marginStart="25dp"
-                                android:text="@string/equipment"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                tools:ignore="HardcodedText,RtlSymmetry" />
-
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/exe_up_equipment"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginEnd="15dp"
-                                android:background="@drawable/text_bg"
-                                android:fontFamily="@font/opensans_bold"
-                                android:hint="@string/equipment"
-                                android:inputType="textEmailAddress"
-                                android:padding="10dp"
-                                android:paddingStart="15dp"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/text"
-                                android:textSize="18sp"
-                                app:cardCornerRadius="10dp"
-                                tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
-
-                            <androidx.appcompat.widget.AppCompatCheckedTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="25dp"
-                                android:fontFamily="@font/opensans_bold"
-                                android:layout_marginStart="25dp"
-                                android:text="@string/description"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                tools:ignore="HardcodedText,RtlSymmetry" />
-
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/exe_up_description"
-                                android:layout_width="match_parent"
-                                android:layout_height="100dp"
-                                android:layout_marginStart="15dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginEnd="15dp"
-                                android:gravity="top"
-                                android:layout_marginBottom="20dp"
-                                android:background="@drawable/text_bg"
-                                android:fontFamily="@font/opensans_bold"
-                                android:hint="Write here..."
-                                android:inputType="textMultiLine"
-                                android:padding="10dp"
-                                android:paddingStart="15dp"
-                                android:textColor="@color/black"
-                                android:textColorHint="@color/text"
-                                android:textSize="18sp"
-                                app:cardCornerRadius="10dp"
-                                tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
-
-
-
-
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
@@ -325,7 +271,6 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
 
         </RelativeLayout>
 
@@ -340,25 +285,22 @@
         android:layout_gravity="bottom">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/exe_up_butt"
+            android:id="@+id/plan_butt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginVertical="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="25dp"
             android:background="@drawable/btn_background"
             android:elevation="@dimen/button_elevation"
             android:fontFamily="@font/opensans_bold"
             android:gravity="center"
             android:shadowColor="@color/black"
-            android:text="@string/update"
+            android:text="@string/submit"
             android:textColor="@color/white"
             android:textSize="@dimen/button_text_size"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
-
     </LinearLayout>
 </LinearLayout>
-
-

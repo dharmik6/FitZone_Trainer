@@ -1,11 +1,15 @@
 package com.example.fitzonetrainer;
 
-public class DietList {
+public class CertificateList {
     private String name;
     private String description;
     private String imageUrl;
 
-    public DietList(String name, String description, String imageUrl) {
+    public CertificateList() {
+        // Empty constructor needed for Firestore
+    }
+
+    public CertificateList(String name, String description, String imageUrl) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;

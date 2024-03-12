@@ -72,24 +72,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/achievements_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:fontFamily="@font/nunito_bold"
-                        android:text="diet Name"
+                        android:text="achievements Name"
                         tools:ignore="HardcodedText" />
 
                 </RelativeLayout>
 
                 <ImageView
+                    android:id="@+id/achievements_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/default_image"
+                    android:layout_below="@id/rl_front"
+                    android:layout_marginTop="10dp"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_below="@id/rl_front"
+                    android:src="@drawable/default_image"
                     tools:ignore="ContentDescription" />
             </RelativeLayout>
 
@@ -113,6 +115,7 @@
                     tools:ignore="HardcodedText" />
 
                 <TextView
+                    android:id="@+id/achievements_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -134,6 +137,7 @@
         android:layout_gravity="bottom">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/del"
             android:layout_width="140dp"
             android:layout_height="40dp"
             android:layout_marginStart="30dp"
@@ -149,6 +153,7 @@
             tools:ignore="HardcodedText,TouchTargetSizeCheck,TextContrastCheck" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/up"
             android:layout_width="140dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"

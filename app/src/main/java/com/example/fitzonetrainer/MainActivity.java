@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new FragmentAppointmentsHome(), false);
 
                 } else if (itemId == R.id.nav_members) {
+                    loadFragment(new FragmentMemberData(), false);
 
                 } else if (itemId == R.id.nav_achievements) {
                     loadFragment(new FragmentAchievementsList(), false);
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new FragmentWorkoutExercisesHome(), false);
 
                 } else if (itemId == R.id.nav_diet_plans) {
-                   redirectActivity(MainActivity.this , DietList.class);
+                   redirectActivity(MainActivity.this , DietListActivity.class);
 
                 } else if (itemId == R.id.nav_profile) {
                     redirectActivity(MainActivity.this , Profile.class);

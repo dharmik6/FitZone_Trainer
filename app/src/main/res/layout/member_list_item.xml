@@ -42,7 +42,7 @@
                 android:paddingVertical="5dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/trainer_image"
+                    android:id="@+id/image_data_member"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentTop="true"
@@ -66,7 +66,7 @@
                     tools:ignore="NotSibling">
 
                     <TextView
-                        android:id="@+id/trainer_name"
+                        android:id="@+id/name_data_member"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -78,7 +78,7 @@
                         tools:ignore="HardcodedText,TextSizeCheck" />
 
                     <TextView
-                        android:id="@+id/trainer_specialization"
+                        android:id="@+id/email_data_member"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_bold"

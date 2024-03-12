@@ -29,6 +29,28 @@
     <string name="sing_up">Sing Up</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="exercises_list">Exercises list</string>
+    <string name="workout_plans">Workout plans</string>
+    <string name="add_achievements">add Achievements</string>
+    <string name="created">Created</string>
+    <string name="difficulty_level">Difficulty Level</string>
+    <string name="created_date">Created Date</string>
+    <string name="edit">Edit</string>
+    <string name="see_all_details">See all details</string>
+    <string name="equipment">Equipment</string>
+    <string name="body_part">Body part</string>
+    <string name="workout_plans_list">Workout plans list</string>
+    <string name="add_exercise">add exercise</string>
+    <string name="height">Height</string>
+    <string name="bmi">BMI</string>
+    <string name="weight">Weight</string>
+    <string name="current">Current</string>
+    <string name="heaviest">Heaviest</string>
+    <string name="lightest">Lightest</string>
 
 
 </resources>

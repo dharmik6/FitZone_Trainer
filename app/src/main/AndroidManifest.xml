@@ -43,7 +43,7 @@
             android:name=".Diet"
             android:exported="false" />
         <activity
-            android:name=".DietList"
+            android:name=".DietListActivity"
             android:exported="false" />
         <activity
             android:name=".UpdateExercises"

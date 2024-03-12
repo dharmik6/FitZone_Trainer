@@ -47,6 +47,8 @@ dependencies {
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
 
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
 
     // TODO: Add the dependencies for Firebase products you want to use
     // When using the BoM, don't specify versions in Firebase dependencies
