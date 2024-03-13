@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -63,9 +64,9 @@ public class UpdateCertificate extends AppCompatActivity {
         btn_certificate = findViewById(R.id.btn_certificate);
 
         Intent intent = getIntent();
-        String did = intent.getStringExtra("name");
-        String ddd = intent.getStringExtra("description");
-        String dima = intent.getStringExtra("imageUrl");
+        String did = intent.getStringExtra("certi_name");
+        String ddd = intent.getStringExtra("certi_description");
+        String dima = intent.getStringExtra("certi_imageUrl");
 
         db = FirebaseFirestore.getInstance();
         // Initialize FirebaseStorage reference
@@ -94,57 +95,18 @@ public class UpdateCertificate extends AppCompatActivity {
         btn_certificate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the updated description
-                String updatedDescription = certificate_description.getText().toString().trim();
+                // Get the user input values
+                String newName = certificate_name.getText().toString();
+                String newDescription = certificate_description.getText().toString();
 
-                // Check if the description is not empty
-                if (TextUtils.isEmpty(updatedDescription)) {
-                    Toast.makeText(UpdateCertificate.this, "Please enter a description", Toast.LENGTH_SHORT).show();
-                    return;
+                // Check if name, description, and image URI are not empty
+                if (!newName.isEmpty() && !newDescription.isEmpty() && selectedImageUri != null) {
+                    // Upload image to Firebase Storage
+                    uploadImage(newName, newDescription);
+                } else {
+                    // Handle empty fields or no selected image
+                    // You can show a toast message or provide some feedback to the user
                 }
-
-                // Display progress dialog
-                progressDialog = new ProgressDialog(UpdateCertificate.this);
-                progressDialog.setMessage("Updating Certificate...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-
-                // Update certificate data in Firestore
-                db.collection("trainers")
-                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .collection("certificates")
-                        .whereEqualTo("name", did)
-                        .get()
-                        .addOnSuccessListener(queryDocumentSnapshots -> {
-                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                String certificateDocumentId = documentSnapshot.getId();
-                                Log.d("UpdateCertificate", "Certificate Document ID: " + certificateDocumentId); // Log the document ID
-
-                                db.collection("trainers")
-                                        .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .collection("certificates")
-                                        .document(certificateDocumentId)
-                                        .update("description", updatedDescription)
-                                        .addOnSuccessListener(aVoid -> {
-                                            // Update successful
-                                            Toast.makeText(UpdateCertificate.this, "Certificate updated successfully", Toast.LENGTH_SHORT).show();
-                                            progressDialog.dismiss();
-                                            finish(); // Close activity after updating
-                                        })
-                                        .addOnFailureListener(e -> {
-                                            // Update failed
-                                            Toast.makeText(UpdateCertificate.this, "Failed to update certificate: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            progressDialog.dismiss();
-                                            Log.e("UpdateCertificate", "Failed to update certificate", e);
-                                        });
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            // Error occurred while fetching the certificate
-                            Toast.makeText(UpdateCertificate.this, "Failed to fetch certificate information: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                            Log.e("UpdateCertificate", "Failed to fetch certificate information", e);
-                        });
             }
         });
 
@@ -156,6 +118,130 @@ public class UpdateCertificate extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            selectedImageUri = data.getData();
+            certificate_image.setImageURI(selectedImageUri);
+        }
+    }
+    private void uploadImage(final String newName, final String newDescription) {
+        // Show progress dialog
+        progressDialog = new ProgressDialog(UpdateCertificate.this);
+        progressDialog.setMessage("Uploading image...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        // Define a reference to the location where you want to store the new image
+        String imageName = UUID.randomUUID().toString(); // Generate a unique name for the image
+        StorageReference imageRef = storageRef.child("images/" + imageName); // Store images in a "images" folder
+
+        // Upload the image to Firebase Storage
+        imageRef.putFile(selectedImageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Image uploaded successfully
+                        // Get the download URL for the new image
+                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // Dismiss progress dialog
+                                progressDialog.dismiss();
+                                // Get the new image URL
+                                String newImageUrl = uri.toString();
+                                // Update Firestore document with the new image URL
+                                updateFirestoreDocument(newName, newDescription, newImageUrl);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Error getting download URL
+                                progressDialog.dismiss();
+                                Toast.makeText(UpdateCertificate.this, "Failed to get image URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Image upload failed
+                        progressDialog.dismiss();
+                        Toast.makeText(UpdateCertificate.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void updateFirestoreDocument(String newName, String newDescription, String newImageUrl) {
+        Log.d("UpdateCertificate", "Document Name: " + newName); // Log document name
+        // Create a map with the updated fields
+        Map<String, Object> certificateData = new HashMap<>();
+        certificateData.put("name", newName);
+        certificateData.put("description", newDescription);
+        certificateData.put("imageUrl", newImageUrl);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String userId = user.getUid();
+
+        // Check if the certificate already exists
+        db.collection("trainers")
+                .document(userId)
+                .collection("certificates")
+                .whereEqualTo("name", newName)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult() != null && !task.getResult().isEmpty()) {
+                                // Update the existing document
+                                db.collection("trainers")
+                                        .document(userId)
+                                        .collection("certificates")
+                                        .document(task.getResult().getDocuments().get(0).getId()) // Assuming there's only one document with the same name
+                                        .update(certificateData)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    // Document updated successfully
+                                                    Toast.makeText(UpdateCertificate.this, "Certificate information updated successfully", Toast.LENGTH_SHORT).show();
+                                                    finish(); // Finish the activity after successful update
+                                                } else {
+                                                    // Error updating document
+                                                    Toast.makeText(UpdateCertificate.this, "Failed to update certificate information: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            } else {
+                                // Document does not exist, create a new one
+                                db.collection("trainers")
+                                        .document(userId)
+                                        .collection("certificates")
+                                        .add(certificateData)
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentReference> task) {
+                                                if (task.isSuccessful()) {
+                                                    // Document created successfully
+                                                    Toast.makeText(UpdateCertificate.this, "New certificate added successfully", Toast.LENGTH_SHORT).show();
+                                                    finish(); // Finish the activity after successful update
+                                                } else {
+                                                    // Error creating document
+                                                    Toast.makeText(UpdateCertificate.this, "Failed to add new certificate: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }
+                        } else {
+                            // Error getting documents
+                            Toast.makeText(UpdateCertificate.this, "Failed to check certificate existence: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
 }

@@ -100,11 +100,13 @@ public class Achievements extends AppCompatActivity {
                 }
 
                 // Start the UpdateDiet activity and pass data as extras
-                Intent intent = new Intent(Achievements.this, UpdateDiet.class);
-                intent.putExtra("name", achiName);
-                intent.putExtra("description", achiDisc);
-                intent.putExtra("imageUrl", imageUrl); // Pass the image URL
+                Intent intent = new Intent(Achievements.this, UpdateCertificate.class);
+                intent.putExtra("certi_name", achiName);
+                intent.putExtra("certi_description", achiDisc);
+                intent.putExtra("certi_imageUrl", imageUrl); // Pass the image URL
                 startActivity(intent);
+
+                finish();
             }
         });
 
@@ -155,6 +157,8 @@ public class Achievements extends AppCompatActivity {
             }
         });
     }
+
+
 
     // Method to show a toast message
     private void showToast(String message) {

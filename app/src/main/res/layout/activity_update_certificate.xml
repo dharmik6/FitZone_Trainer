@@ -36,7 +36,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:gravity="center"
-            android:text="Update Diet"
+            android:text="Update Achievements"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/back_press"
@@ -103,7 +103,7 @@
                                     android:layout_height="200dp"
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
-                                    android:src="@drawable/healthy_food_img"
+                                    android:src="@drawable/default_image"
                                     tools:ignore="ContentDescription,ExtraText,ImageContrastCheck,ObsoleteLayoutParam,UselessParent" />
                             </RelativeLayout>
 

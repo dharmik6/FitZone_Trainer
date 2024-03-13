@@ -37,7 +37,7 @@ CardView edit ;
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
+              FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("trainers").document(userId).get().addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
                     String trname = documentSnapshot.getString("name");
