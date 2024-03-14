@@ -16,59 +16,59 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="UselessLeaf">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:background="@color/dark_blue"
-        android:layout_width="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_arrow_small_left"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/text_title"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
+            android:background="@color/dark_blue"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:gravity="center"
-            android:layout_toStartOf="@+id/back"
-            android:layout_toEndOf="@+id/back"
-            android:fontFamily="@font/opensans_bold"
-            android:text="@string/workout_plans"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/back"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
-
-
-        <ImageView
-            android:id="@+id/settings"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="10dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:layout_alignParentTop="true"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_arrow_small_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="center"
+                android:layout_toStartOf="@+id/back"
+                android:layout_toEndOf="@+id/back"
+                android:fontFamily="@font/opensans_bold"
+                android:text="@string/workout_plans"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="HardcodedText" />
+
+
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -80,338 +80,335 @@
             android:layout_alignParentEnd="true"
             android:layout_below="@id/linearLayout">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:id="@+id/rl_workout_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:paddingVertical="5dp">
-
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                tools:ignore="UselessLeaf">
-
-                <LinearLayout
-                    android:id="@+id/workout_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:orientation="vertical"
-                    tools:ignore="UselessParent">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/plan_name_exe"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Workout plan name"
-                        android:fontFamily="@font/opensans_bold"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"
-                        android:textSize="18sp"
-                        android:textColor="@color/black"
-                        tools:ignore="HardcodedText,ObsoleteLayoutParam" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/totla_exe_plan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="0 exercises"
-                        android:fontFamily="@font/nunito_bold"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"
-                        android:textSize="16sp"
-                        android:textColor="@color/text"
-                        tools:ignore="HardcodedText,ObsoleteLayoutParam" />
-
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_wor_plan"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:src="@drawable/dumbbell_img"
-                app:civ_border_color="@color/text"
-                app:civ_border_width="1dp"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
-
-
-        </RelativeLayout>
-        
-        <RelativeLayout
-            android:id="@+id/plan_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/rl_workout_name">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/information2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:backgroundTint="@color/card_view"
-                app:cardCornerRadius="20dp"
-                tools:ignore="ObsoleteLayoutParam">
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
+                    android:id="@+id/rl_workout_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp">
+                    android:layout_alignParentEnd="true"
+                    android:paddingVertical="5dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
-                        android:orientation="vertical"
-                        tools:ignore="UselessParent">
+                        tools:ignore="UselessLeaf">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/opensans_condensed_regular"
-                            android:text="@string/created"
-                            android:textColor="@color/text"
-                            android:textSize="16sp"
-                            tools:ignore="HardcodedText,SpUsage" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <LinearLayout
+                            android:id="@+id/workout_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="15dp"
-                            android:fontFamily="@font/nunito_regular"
-                            android:padding="10dp"
-                            android:paddingStart="15dp"
-                            android:text="12a1dsd1sd1d2fsg"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
+                            android:layout_marginTop="15dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:orientation="vertical"
+                            tools:ignore="UselessParent">
 
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@drawable/ic_line"
-                            tools:ignore="ContentDescription" />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/plan_name_exe"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Workout plan name"
+                                android:fontFamily="@font/opensans_bold"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentStart="true"
+                                android:textSize="18sp"
+                                android:textColor="@color/black"
+                                tools:ignore="HardcodedText,ObsoleteLayoutParam" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/opensans_condensed_regular"
-                            android:text="@string/difficulty_level"
-                            android:textColor="@color/text"
-                            android:textSize="16sp"
-                            tools:ignore="HardcodedText,SpUsage" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="15dp"
-                            android:fontFamily="@font/nunito_regular"
-                            android:padding="10dp"
-                            android:paddingStart="15dp"
-                            android:text="Jaymin chavda"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@drawable/ic_line"
-                            tools:ignore="ContentDescription" />
-
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginTop="20dp"
-                            android:fontFamily="@font/opensans_condensed_regular"
-                            android:text="@string/created_date"
-                            android:textColor="@color/text"
-                            android:textSize="16sp"
-                            tools:ignore="HardcodedText,SpUsage" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="20dp"
-                            android:layout_marginEnd="15dp"
-                            android:fontFamily="@font/nunito_regular"
-                            android:padding="10dp"
-                            android:paddingStart="15dp"
-                            android:text="1998.00"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck" />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/totla_exe_plan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="0 exercises"
+                                android:fontFamily="@font/nunito_bold"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentStart="true"
+                                android:textSize="16sp"
+                                android:textColor="@color/text"
+                                tools:ignore="HardcodedText,ObsoleteLayoutParam" />
 
                         </LinearLayout>
+
+
+                    </RelativeLayout>
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_wor_plan"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/dumbbell_img"
+                        app:civ_border_color="@color/text"
+                        app:civ_border_width="1dp"
+                        tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+
                 </RelativeLayout>
 
-            </androidx.cardview.widget.CardView>
-
-        </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_exercises"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/plan_info">
-
-
-                <LinearLayout
+                <RelativeLayout
+                    android:id="@+id/plan_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    tools:ignore="UselessLeaf,UselessParent">
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/rl_workout_name">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyc_exe_data"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="vertical"
-                        tools:listitem="@layout/exercise_name_list_item" />
-                </LinearLayout>
-
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/rl_exercises">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/edit_plan_tr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:layout_marginTop="5dp"
-                    android:backgroundTint="@color/card_view"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginBottom="5dp"
-                    app:cardCornerRadius="20dp">
-
-                    <LinearLayout
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/information2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_marginHorizontal="10dp"
-                        android:layout_marginVertical="20dp"
                         android:layout_marginBottom="10dp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true">
+                        android:layout_alignParentTop="true"
+                        android:backgroundTint="@color/card_view"
+                        app:cardCornerRadius="20dp"
+                        tools:ignore="ObsoleteLayoutParam">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="20dp"
-                        android:src="@drawable/ic_pencil"
-                        android:layout_gravity="center"
-                        android:layout_alignParentStart="true"
-                        tools:ignore="ContentDescription,ObsoleteLayoutParam" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/edit"
-                        android:fontFamily="@font/nunito_bold"
-                        android:textColor="@color/black"
-                        android:layout_marginStart="20dp"
-                        android:textSize="20sp"
-                        tools:ignore="HardcodedText" />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentTop="true"
+                                android:orientation="vertical"
+                                tools:ignore="UselessParent">
 
-                    </LinearLayout>
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="30dp"
+                                    android:layout_marginTop="20dp"
+                                    android:fontFamily="@font/opensans_condensed_regular"
+                                    android:text="@string/created"
+                                    android:textColor="@color/text"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText,SpUsage" />
 
-                </androidx.cardview.widget.CardView>
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:fontFamily="@font/nunito_regular"
+                                    android:padding="10dp"
+                                    android:paddingStart="15dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_edit"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:src="@drawable/ic_line"
+                                    tools:ignore="ContentDescription" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/dele_plan_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="30dp"
+                                    android:layout_marginTop="20dp"
+                                    android:fontFamily="@font/opensans_condensed_regular"
+                                    android:text="@string/difficulty_level"
+                                    android:textColor="@color/text"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText,SpUsage" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:fontFamily="@font/nunito_regular"
+                                    android:padding="10dp"
+                                    android:paddingStart="15dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:src="@drawable/ic_line"
+                                    tools:ignore="ContentDescription" />
+
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="30dp"
+                                    android:layout_marginTop="20dp"
+                                    android:fontFamily="@font/opensans_condensed_regular"
+                                    android:text="@string/created_date"
+                                    android:textColor="@color/text"
+                                    android:textSize="16sp"
+                                    tools:ignore="HardcodedText,SpUsage" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginEnd="15dp"
+                                    android:fontFamily="@font/nunito_regular"
+                                    android:padding="10dp"
+                                    android:paddingStart="15dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck" />
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_exercises"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@drawable/delete_btn_bg"
-                    android:fontFamily="@font/nunito_bold"
-                    android:text="Delete"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:ignore="HardcodedText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                    android:layout_below="@+id/plan_info">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        tools:ignore="UselessLeaf,UselessParent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyc_exe_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="vertical"
+                            tools:listitem="@layout/exercise_name_list_item" />
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/rl_exercises">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/edit_plan_tr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:layout_marginTop="5dp"
+                        android:backgroundTint="@color/card_view"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="5dp"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:layout_marginVertical="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="20dp"
+                                android:src="@drawable/ic_pencil"
+                                android:layout_gravity="center"
+                                android:layout_alignParentStart="true"
+                                tools:ignore="ContentDescription,ObsoleteLayoutParam" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/edit"
+                                android:fontFamily="@font/nunito_bold"
+                                android:textColor="@color/black"
+                                android:layout_marginStart="20dp"
+                                android:textSize="20sp"
+                                tools:ignore="HardcodedText" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_edit"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/dele_plan_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/delete_btn_bg"
+                        android:fontFamily="@font/nunito_bold"
+                        android:text="Delete"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                </RelativeLayout>
             </RelativeLayout>
-        </RelativeLayout>
 
         </ScrollView>
 

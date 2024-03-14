@@ -75,7 +75,8 @@ public class WorkoutPlansList extends AppCompatActivity {
                 String name = documentSnapshot.getString("name");
                 String body = documentSnapshot.getString("goal");
                 String image = documentSnapshot.getString("image");
-                WorkoutPlansItemList exe = new WorkoutPlansItemList(name, body, image);
+                String id = documentSnapshot.getId();
+                WorkoutPlansItemList exe = new WorkoutPlansItemList(name, body, image,id);
                 exercisesItemLists.add(exe);
             }
             filteredList.addAll(exercisesItemLists); // Initialize filteredList with all members

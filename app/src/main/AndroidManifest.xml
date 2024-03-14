@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FitZoneTrainer"
         tools:targetApi="31">
         <activity
+            android:name=".EditWorkoutList"
+            android:exported="false" />
+        <activity
             android:name=".AcceptedAppintments"
             android:exported="false" />
         <activity
@@ -67,6 +70,12 @@
             android:name=".WorkoutPlan"
             android:exported="false" />
         <activity
+            android:name=".WorkoutPlans"
+            android:exported="false" />
+        <activity
+            android:name=".WorkoutPlansList"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
@@ -92,9 +101,6 @@
             android:exported="false" />
         <activity
             android:name=".ProfileInformation"
-            android:exported="false" />
-        <activity
-            android:name=".WorkoutPlanList"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"

@@ -1,5 +1,7 @@
 package com.example.fitzonetrainer;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,11 +38,12 @@ public class WorkoutPlans extends AppCompatActivity {
     RecyclerView recyc_exe_data;
     Button dele_plan_data;
     CardView edit_plan_tr;
-    TextView totla_exe_plan,plan_name_exe;
+    TextView totla_exe_plan, plan_name_exe;
     CircleImageView img_wor_plan;
     private WorkoutPlansShowAdapter adapter;
     private List<ExercisesItemList> exercisesItemLists;
     private ProgressDialog progressDialog;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,23 +62,14 @@ public class WorkoutPlans extends AppCompatActivity {
         Intent intent = getIntent();
         String eid = intent.getStringExtra("name");
         String edd = intent.getStringExtra("image");
+        String wid = intent.getStringExtra("id");
 
-        // Set the received data to the EditText fields
+//        Log.d("wid", wid);
         plan_name_exe.setText(eid);
-        // Set the received data to the ImageView
-        if (!TextUtils.isEmpty(edd)) {
-            try {
-                // Decode the base64 string to a Bitmap
-                byte[] decodedString = Base64.decode(edd, Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-                // Set the decoded Bitmap to the ImageView
-                img_wor_plan.setImageBitmap(decodedByte);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                // Handle the case where the base64 string is invalid
-            }
-        }
+        // Load image into ImageView using Glide library
+        Glide.with(this)
+                .load(edd)
+                .into(img_wor_plan);
 
         recyc_exe_data.setHasFixedSize(true);
         recyc_exe_data.setLayoutManager(new LinearLayoutManager(this));
@@ -87,38 +82,17 @@ public class WorkoutPlans extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
-        progressDialog.show();
+//        progressDialog.show();
 
-        // Query Firestore for data
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("exercises").get().addOnSuccessListener(queryDocumentSnapshots -> {
-            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                String name = documentSnapshot.getString("name");
-                String body = documentSnapshot.getString("body");
-                String image = documentSnapshot.getString("imageUrl");
-                String id = documentSnapshot.getId();
-                ExercisesItemList exe = new ExercisesItemList(name, body, image, id);
-                exercisesItemLists.add(exe);
-            }
-            adapter.notifyDataSetChanged();
-            updateTotalExercises(); // Update total exercises count
-            // Dismiss ProgressDialog when data is loaded
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
-
-        }).addOnFailureListener(e -> {
-            // Handle failures
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
-        });
+        fetchAndDisplayExerciseDetails(wid);
         edit_plan_tr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = plan_name_exe.getText().toString(); // Retrieve the text from plan_name TextView
+//                String name = plan_name_exe.getText().toString(); // Retrieve the text from plan_name TextView
                 Intent intent = new Intent(WorkoutPlans.this, EditWorkout.class);
-                intent.putExtra("name", name);
+                intent.putExtra("name", eid);
+                intent.putExtra("image", edd);
+                intent.putExtra("wid", wid);
                 startActivity(intent);
             }
         });
@@ -138,7 +112,7 @@ public class WorkoutPlans extends AppCompatActivity {
                                 // Document successfully deleted
                                 progressDialog.dismiss();
                                 Toast.makeText(WorkoutPlans.this, "Document deleted successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent1=new Intent(WorkoutPlans.this,WorkoutPlansList.class);
+                                Intent intent1 = new Intent(WorkoutPlans.this, WorkoutPlansList.class);
                                 startActivity(intent1);
                             }
                         })
@@ -157,12 +131,52 @@ public class WorkoutPlans extends AppCompatActivity {
         backPress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                Intent intent1 = new Intent(WorkoutPlans.this, WorkoutPlansList.class);
+                intent1.putExtra("worid", wid);
+                startActivity(intent1);
             }
         });
     }
-    // Method to update total exercises count
-    private void updateTotalExercises() {
-        totla_exe_plan.setText("Total Exercises: " + exercisesItemLists.size());
+
+    private void fetchAndDisplayExerciseDetails(String wid) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("workout_plans")
+                .document(wid)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        List<String> exerciseIds = (List<String>) documentSnapshot.get("exename");
+                        if (exerciseIds != null) {
+                            for (String exerciseId : exerciseIds) {
+                                fetchExerciseDetails(exerciseId);
+                            }
+                            // Update total exercises count
+                            updateTotalExercises(exerciseIds.size());
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Error fetching workout document", e));
+    }
+
+    // Function to fetch exercise details
+    private void fetchExerciseDetails(String exerciseId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("exercises")
+                .document(exerciseId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        ExercisesItemList item = documentSnapshot.toObject(ExercisesItemList.class);
+                        if (item != null) {
+                            exercisesItemLists.add(item);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> Log.w(TAG, "Error fetching exercise document", e));
+    }
+
+    private void updateTotalExercises(int size) {
+        totla_exe_plan.setText("Total Exercises: " + size);
     }
 }
