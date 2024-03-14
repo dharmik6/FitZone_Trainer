@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
-    tools:context=".PendingAppointments">
+    tools:context=".AcceptedAppintments">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                         tools:ignore="UselessLeaf,UselessParent">
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/PendingList"
+                            android:id="@+id/acceptedList"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:scrollbars="vertical"
@@ -110,6 +110,7 @@
         </ScrollView>
 
     </RelativeLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

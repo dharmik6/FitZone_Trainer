@@ -131,6 +131,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/booking_id"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -139,7 +140,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="12a1dsd1sd1d2fsg"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
@@ -163,6 +164,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/member_id"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -195,6 +197,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/bookig_date"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -227,6 +230,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/start_time"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -259,6 +263,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/end_time"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -292,6 +297,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/booking_status"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -456,6 +462,7 @@
                         android:layout_marginBottom="20dp">
 
                         <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_accept"
                             android:layout_width="150dp"
                             android:layout_height="40dp"
                             android:layout_alignParentStart="true"
@@ -473,6 +480,7 @@
                             tools:ignore="HardcodedText,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                         <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/cancel"
                             android:layout_width="150dp"
                             android:layout_height="40dp"
                             android:layout_alignParentTop="true"
@@ -481,7 +489,7 @@
                             android:layout_marginBottom="20dp"
                             android:background="@drawable/delete_btn_bg"
                             android:fontFamily="@font/nunito_bold"
-                            android:text="Reject"
+                            android:text="Cancel"
                             android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"

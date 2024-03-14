@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -13,36 +12,35 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PendingAppointments extends AppCompatActivity {
-    RecyclerView pendingList ;
-    private PendingBookingAdapter adapter;
-    private List<BookingItemList> PendingLists;
-
+public class AcceptedAppintments extends AppCompatActivity {
+    RecyclerView RecycAcceptedList ;
+    private AcceptedBookingAdapter adapter;
+    private List<BookingItemList> acceptedLists;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pending_appointments);
+        setContentView(R.layout.activity_accepted_appintments);
 
-        pendingList = findViewById(R.id.PendingList);
-        pendingList.setHasFixedSize(true);
-        pendingList.setLayoutManager(new LinearLayoutManager(this));
+        RecycAcceptedList = findViewById(R.id.acceptedList);
+        RecycAcceptedList.setHasFixedSize(true);
+        RecycAcceptedList.setLayoutManager(new LinearLayoutManager(this));
 
-        PendingLists = new ArrayList<>();
-        adapter = new PendingBookingAdapter(this, PendingLists);
+        acceptedLists = new ArrayList<>();
+        adapter = new AcceptedBookingAdapter(this, acceptedLists);
 
-        pendingList.setAdapter(adapter);
+        RecycAcceptedList.setAdapter(adapter);
 
     }
-    @Override
     protected void onResume() {
         super.onResume();
         loadDietData();
     }
+
     private void loadDietData() {
-        PendingLists.clear(); // Clear the previous list
+        acceptedLists.clear(); // Clear the previous list
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("bookings")
-                .whereEqualTo("paymentStatus", "pending")
+                .whereEqualTo("paymentStatus", "confirmed")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
@@ -59,7 +57,7 @@ public class PendingAppointments extends AppCompatActivity {
                                     String email = userDocumentSnapshot.getString("email");
                                     // Create a BookingItemList object with user details
                                     BookingItemList bookingList = new BookingItemList(name, email, status ,id);
-                                    PendingLists.add(bookingList);
+                                    acceptedLists.add(bookingList);
                                     adapter.notifyDataSetChanged(); // Notify adapter about data changes
                                 })
                                 .addOnFailureListener(e -> {
@@ -71,6 +69,7 @@ public class PendingAppointments extends AppCompatActivity {
                     // Handle failure
                 });
     }
+
 
 
 }

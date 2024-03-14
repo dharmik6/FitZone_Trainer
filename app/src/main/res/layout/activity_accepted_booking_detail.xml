@@ -131,6 +131,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/booking_id"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -163,6 +164,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/member_id"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -195,6 +197,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/bookig_date"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -227,6 +230,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/start_time"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -259,6 +263,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/end_time"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -292,6 +297,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/booking_status"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -299,14 +305,19 @@
                                     android:layout_marginEnd="15dp"
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
-                                    android:layout_marginBottom="20dp"
                                     android:paddingStart="15dp"
                                     android:text="confirmed"
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
 
-
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:src="@drawable/ic_line"
+                                    tools:ignore="ContentDescription" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -445,6 +456,7 @@
                     </androidx.cardview.widget.CardView>
 
 
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -452,5 +464,6 @@
 
         </ScrollView>
     </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

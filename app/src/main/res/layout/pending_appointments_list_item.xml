@@ -54,7 +54,7 @@
                         android:id="@+id/workout_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="140dp"
+                        android:layout_marginEnd="100dp"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentEnd="true"
@@ -62,6 +62,7 @@
                         tools:ignore="UselessParent">
 
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Member name"
@@ -72,13 +73,14 @@
                             android:textColor="@color/black"
                             tools:ignore="HardcodedText,ObsoleteLayoutParam" />
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="email@xyz.com"
                             android:fontFamily="@font/nunito_bold"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentStart="true"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             android:textColor="@color/text"
                             tools:ignore="HardcodedText,ObsoleteLayoutParam" />
 
@@ -98,6 +100,7 @@
                     android:layout_marginBottom="5dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pending "
