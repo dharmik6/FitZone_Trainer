@@ -188,6 +188,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/exe_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20sp"
@@ -217,6 +218,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <Spinner
+                                android:id="@+id/exe_body"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -246,6 +248,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/exe_equipment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -275,6 +278,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/exe_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
                                 android:layout_marginStart="15dp"
@@ -312,6 +316,7 @@
                         tools:ignore="ObsoleteLayoutParam">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/add_butt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"

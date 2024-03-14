@@ -50,6 +50,7 @@ public class Registration extends AppCompatActivity {
         String email = trainer_email.getText().toString().trim();
         String password = trainer_pass.getText().toString().trim();
         boolean isActive = false;
+        String charge = ""; // Assuming you obtain this value from some input field
 
         if (TextUtils.isEmpty(name)) {
             trainer_name.setError("Please enter your name");
@@ -95,15 +96,16 @@ public class Registration extends AppCompatActivity {
                         userData.put("email", email);
                         userData.put("password", password);
                         userData.put("is_active", isActive);
+                        userData.put("charge", charge); // Add charge field
 
                         // Add the user to Firestore with the generated UID
                         db.collection("trainers")
                                 .document(userId)
                                 .set(userData)
                                 .addOnSuccessListener(aVoid -> {
-                                    SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+                                    SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = pref.edit();
-                                    editor.putBoolean("flag" ,true);
+                                    editor.putBoolean("flag", true);
                                     editor.apply();
 
                                     Toast.makeText(Registration.this, "Registration successful", Toast.LENGTH_SHORT).show();
@@ -119,6 +121,7 @@ public class Registration extends AppCompatActivity {
                     }
                 });
     }
+
 
     public static void redirectActivity(Activity activity, Class destination, String name) {
         Intent intent = new Intent(activity, destination);

@@ -38,8 +38,9 @@ dependencies {
     //BMI
     implementation ("com.github.Gruzer:simple-gauge-android:0.3.1")
 
-    //shimmer
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+    //shimmer
 
     //searchView
     implementation ("com.github.mancj:MaterialSearchBar:0.8.5")

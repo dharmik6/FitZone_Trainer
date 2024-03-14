@@ -209,11 +209,11 @@ public class UpdateExercises extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             // Document updated successfully
-                            Toast.makeText(UpdateExercises.this, "exerscise information updated successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateExercises.this, "Diet information updated successfully", Toast.LENGTH_SHORT).show();
                             finish(); // Finish the activity after successful update
                         } else {
                             // Error updating document
-                            Toast.makeText(UpdateExercises.this, "Failed to update exerscise information: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateExercises.this, "Failed to update diet information: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

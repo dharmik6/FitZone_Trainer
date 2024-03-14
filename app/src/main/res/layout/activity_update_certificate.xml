@@ -218,7 +218,6 @@
                                 android:layout_marginEnd="15dp"
                                 android:gravity="top"
                                 android:layout_marginBottom="20dp"
-                                android:gravity="top"
                                 android:scrollbars="vertical"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentStart="true"

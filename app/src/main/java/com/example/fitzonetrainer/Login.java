@@ -100,31 +100,41 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             if (!task.getResult().isEmpty()) {
-                                // Email exists in the database, proceed with signing in the user
-                                mAuth.signInWithEmailAndPassword(email, password)
-                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                pd.dismiss(); // Dismiss the progress dialog
-                                                if (task.isSuccessful()) {
+                                // Email exists in the database
+                                // Check if the trainer is active
+                                boolean isActive = task.getResult().getDocuments().get(0).getBoolean("is_active");
+                                if (isActive) {
+                                    // Trainer is active, proceed with signing in
+                                    mAuth.signInWithEmailAndPassword(email, password)
+                                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                                    pd.dismiss(); // Dismiss the progress dialog
+                                                    if (task.isSuccessful()) {
+                                                        setLoggedInFlag();
 
-                                                    SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
-                                                    SharedPreferences.Editor editor = pref.edit();
+                                                        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+                                                        SharedPreferences.Editor editor = pref.edit();
 
-                                                    editor.putBoolean("flag", true);
-                                                    editor.apply();
+                                                        editor.putBoolean("flag", true);
+                                                        editor.apply();
 
-                                                    Intent intent = new Intent(Login.this, MainActivity.class);
-                                                    startActivity(intent);
-                                                    finish(); // Close the login activity
-                                                    // Sign in success, update UI with the signed-in user's information
-                                                    Toast.makeText(Login.this, "Sign in Successful!", Toast.LENGTH_SHORT).show();
-                                                } else {
-                                                    // If sign in fails, display a message to the user.
-                                                    Toast.makeText(Login.this, "Please Enter the Correct Email id and Password", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(Login.this, MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish(); // Close the login activity
+                                                        // Sign in success, update UI with the signed-in user's information
+                                                        Toast.makeText(Login.this, "Sign in Successful!", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        // If sign in fails, display a message to the user.
+                                                        Toast.makeText(Login.this, "Please Enter the Correct Email id and Password", Toast.LENGTH_SHORT).show();
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                } else {
+                                    // Trainer is not active, show a message
+                                    pd.dismiss(); // Dismiss the progress dialog
+                                    Toast.makeText(Login.this, "Please wait for admin approval", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 // Email doesn't exist in the database
                                 Toast.makeText(Login.this, "Email doesn't exist", Toast.LENGTH_SHORT).show();

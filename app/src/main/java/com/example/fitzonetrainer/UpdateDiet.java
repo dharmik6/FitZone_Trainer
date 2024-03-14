@@ -116,7 +116,7 @@ public class UpdateDiet extends AppCompatActivity {
             }
         });
 
-        ImageView backPress = findViewById(R.id.back_press);
+        ImageView backPress = findViewById(R.id.back);
         backPress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +144,7 @@ public class UpdateDiet extends AppCompatActivity {
 
         // Define a reference to the location where you want to store the new image
         String imageName = UUID.randomUUID().toString(); // Generate a unique name for the image
-        StorageReference imageRef = storageRef.child("images/" + imageName); // Store images in a "images" folder
+        StorageReference imageRef = storageRef.child("images/" + imageName); // Store images in an "images" folder
 
         // Upload the image to Firebase Storage
         imageRef.putFile(selectedImageUri)
@@ -182,6 +182,7 @@ public class UpdateDiet extends AppCompatActivity {
                     }
                 });
     }
+
     private void updateFirestoreDocument(String newName, String newDescription, String newImageUrl) {
         // Create a map with the updated fields
         Map<String, Object> dietData = new HashMap<>();

@@ -166,31 +166,32 @@ public class ProfileInformation extends AppCompatActivity {
                         userData.put("number", userPhone);
                         userData.put("image", imageUrl); // Save the image URL instead of URI
 
-                        // Add the user data to Firestore using the same UID
-                        db.collection("trainers")
-                                .document(uid)
-                                .update(userData)
-                                .addOnSuccessListener(aVoid -> {
-                                    // Dismiss progress dialog
-                                    progressDialog.dismiss();
-                                    Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
-                                    // Redirect to the next activity
-                                    redirectActivity(ProfileInformation.this, MainActivity.class, uid);
-                                })
-                                .addOnFailureListener(e -> {
-                                    // Dismiss progress dialog
-                                    progressDialog.dismiss();
-                                    // Failed to save data
-                                    Toast.makeText(ProfileInformation.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                                });
+                            // Add the user data to Firestore using the same UID
+                            db.collection("trainers")
+                                    .document(uid)
+                                    .update(userData)
+                                    .addOnSuccessListener(aVoid -> {
+                                        // Dismiss progress dialog
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
+                                        // Redirect to the next activity
+                                        redirectActivity(ProfileInformation.this, Login.class, uid);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Dismiss progress dialog
+                                        progressDialog.dismiss();
+                                        // Failed to save data
+                                        Toast.makeText(ProfileInformation.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                                    });
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        // Dismiss progress dialog
+                        progressDialog.dismiss();
+                        // Handle failures
+                        Toast.makeText(ProfileInformation.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
                     });
-                })
-                .addOnFailureListener(e -> {
-                    // Dismiss progress dialog
-                    progressDialog.dismiss();
-                    // Handle failures
-                    Toast.makeText(ProfileInformation.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
-                });
+
     }
 
     // In the Registration activity
