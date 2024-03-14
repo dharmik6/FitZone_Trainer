@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FitZoneTrainer"
         tools:targetApi="31">
         <activity
+            android:name=".AcceptedAppointments"
+            android:exported="false" />
+        <activity
             android:name=".WorkoutExercisesList"
             android:exported="false" />
         <activity
