@@ -21,6 +21,7 @@
             android:background="@color/dark_blue"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints">
 
@@ -47,7 +48,7 @@
                 android:fontFamily="@font/opensans_bold"
                 android:text="Edit Profile"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/back"
                 app:layout_constraintTop_toTopOf="parent"
@@ -71,6 +72,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:background="@color/card_view"
+                android:layout_marginTop="10dp"
                 tools:ignore="ScrollViewSize">
 
 
@@ -108,7 +110,7 @@
                         tools:ignore="UselessParent">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/circleImageView"
+                            android:id="@+id/up_image"
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_centerInParent="true"
@@ -117,10 +119,11 @@
                             tools:ignore="ExtraText,UselessParent,ImageContrastCheck" />
 
                         <RelativeLayout
+                            android:id="@+id/camera"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:layout_alignEnd="@+id/circleImageView"
-                            android:layout_alignBottom="@+id/circleImageView"
+                            android:layout_alignEnd="@+id/up_image"
+                            android:layout_alignBottom="@+id/up_image"
                             android:layout_marginStart="170dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/camera_bg">
@@ -138,7 +141,7 @@
 
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -146,6 +149,41 @@
                         android:layout_alignParentEnd="true"
                         android:layout_below="@+id/rl_image"
                         android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatCheckedTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/opensans_bold"
+                            android:layout_marginStart="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:text="Name"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:ignore="HardcodedText,RtlSymmetry" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/up_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/id_user_name"
+                            android:background="@drawable/text_bg"
+                            android:fontFamily="@font/opensans_bold"
+                            android:hint="name"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:paddingStart="15dp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text"
+                            android:textSize="18sp"
+                            app:cardCornerRadius="10dp"
+                            tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
 
                         <androidx.appcompat.widget.AppCompatCheckedTextView
                             android:id="@+id/id_user_name"
@@ -162,7 +200,7 @@
                             tools:ignore="HardcodedText,RtlSymmetry" />
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/user_name"
+                            android:id="@+id/up_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -199,7 +237,7 @@
                             tools:ignore="HardcodedText,RtlSymmetry" />
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/address"
+                            android:id="@+id/up_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -236,7 +274,7 @@
                             tools:ignore="HardcodedText,RtlSymmetry" />
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/experience"
+                            android:id="@+id/up_experience"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/id_experience"
@@ -272,7 +310,7 @@
                             tools:ignore="HardcodedText,RtlSymmetry" />
 
                         <Spinner
-                            android:id="@+id/Specialization"
+                            android:id="@+id/up_Specialization"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="15dp"
@@ -313,6 +351,7 @@
                                     tools:ignore="HardcodedText,RtlSymmetry" />
 
                                 <Spinner
+                                    android:id="@+id/up_gender"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -345,6 +384,7 @@
                                     tools:ignore="HardcodedText,RtlSymmetry" />
 
                                 <Spinner
+                                    android:id="@+id/up_age"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
@@ -377,7 +417,7 @@
                             tools:ignore="HardcodedText,RtlSymmetry" />
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/bio"
+                            android:id="@+id/up_bio"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:layout_marginStart="15dp"
@@ -401,7 +441,7 @@
                             app:cardCornerRadius="10dp"
                             tools:ignore="HardcodedText,RtlSymmetry,TouchTargetSizeCheck" />
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -414,7 +454,7 @@
                     android:layout_below="@+id/rl_photo">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_next"
+                        android:id="@+id/btn_update"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"

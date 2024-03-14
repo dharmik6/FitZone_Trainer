@@ -3,6 +3,7 @@ package com.example.fitzonetrainer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -100,6 +101,11 @@ public class Registration extends AppCompatActivity {
                                 .document(userId)
                                 .set(userData)
                                 .addOnSuccessListener(aVoid -> {
+                                    SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = pref.edit();
+                                    editor.putBoolean("flag" ,true);
+                                    editor.apply();
+
                                     Toast.makeText(Registration.this, "Registration successful", Toast.LENGTH_SHORT).show();
                                     // Redirect to the profile activity
                                     redirectActivity(Registration.this, ProfileInformation.class, userId);

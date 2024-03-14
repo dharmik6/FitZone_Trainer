@@ -55,17 +55,17 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true">
 
-                    <ImageView
-                        android:id="@+id/img_user"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginBottom="4dp"
-                        android:src="@drawable/dumbbell_img"
-                        app:civ_border_color="@color/text"
-                        app:civ_border_width="1dp"
-                        tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+                <ImageView
+                    android:id="@+id/img_exe"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/dumbbell_img"
+                    app:civ_border_color="@color/text"
+                    app:civ_border_width="1dp"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
                 </androidx.cardview.widget.CardView>
 
@@ -81,6 +81,7 @@
                     tools:ignore="NotSibling">
 
                     <TextView
+                        android:id="@+id/namee_exe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -92,6 +93,7 @@
                         tools:ignore="HardcodedText,TextSizeCheck" />
 
                     <TextView
+                        android:id="@+id/bodypart_exe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_bold"

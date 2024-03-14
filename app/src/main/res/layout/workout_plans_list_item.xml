@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/back_ground"
+    android:foregroundGravity="center">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/active_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/card_view"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:paddingVertical="5dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    tools:ignore="UselessLeaf">
+
+                    <LinearLayout
+                        android:id="@+id/workout_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="vertical"
+                        tools:ignore="UselessParent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/plan_sho_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Workout plan name"
+                        android:fontFamily="@font/opensans_bold"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        tools:ignore="HardcodedText,ObsoleteLayoutParam" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/plan_sho_exercises"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="0 exercises"
+                            android:fontFamily="@font/nunito_bold"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:textSize="14sp"
+                            android:textColor="@color/text"
+                            tools:ignore="HardcodedText,ObsoleteLayoutParam" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/workout_name"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunito_regular"
+                            android:textSize="12sp"
+                            android:textColor="@color/dark_cyan"
+                            android:text="@string/see_all_details"
+                            tools:ignore="HardcodedText,SmallSp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/ic_angle_small_down"
+                            tools:ignore="ContentDescription,ObsoleteLayoutParam" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/plan_sho_image"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/dumbbell_img"
+                    app:civ_border_color="@color/text"
+                    app:civ_border_width="1dp"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
+
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

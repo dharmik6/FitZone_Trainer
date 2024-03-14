@@ -87,7 +87,7 @@
                         tools:ignore="UselessParent">
 
                         <ImageView
-                            android:id="@+id/exe_image"
+                            android:id="@+id/show_image"
                             android:layout_width="200dp"
                             android:layout_height="200dp"
                             android:layout_centerHorizontal="true"
@@ -141,6 +141,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/show_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20sp"
@@ -175,7 +176,8 @@
                                 android:textStyle="bold"
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
-                            <Spinner
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/show_body"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -210,6 +212,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/show_equipment"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -244,6 +247,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/show_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
@@ -282,6 +286,7 @@
                         tools:ignore="UselessParent">
 
                         <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/exe_delete"
                             android:layout_width="140dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="30dp"
@@ -297,6 +302,7 @@
                             tools:ignore="HardcodedText,TouchTargetSizeCheck,TextContrastCheck" />
 
                         <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/exe_update"
                             android:layout_width="140dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="20dp"

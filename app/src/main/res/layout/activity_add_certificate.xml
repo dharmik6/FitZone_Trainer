@@ -19,7 +19,7 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/back_press"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentStart="true"
@@ -35,17 +35,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:gravity="center"
-            android:layout_toStartOf="@+id/back"
-            android:layout_toEndOf="@+id/back"
+            android:layout_toStartOf="@+id/back_press"
             android:fontFamily="@font/opensans_bold"
-            android:text="Add Diet"
+            android:gravity="center"
+            android:text="Add Achivments"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/back"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            tools:layout_editor_absoluteX="10dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,7 +99,7 @@
                                 android:layout_height="200dp">
 
                                 <ImageView
-                                    android:id="@+id/exe_image"
+                                    android:id="@+id/achi_image"
                                     android:layout_width="300dp"
                                     android:layout_height="200dp"
                                     android:layout_centerHorizontal="true"
@@ -112,7 +111,7 @@
                         </RelativeLayout>
 
                         <androidx.cardview.widget.CardView
-                            android:id="@+id/exe_camera"
+                            android:id="@+id/achi_camera"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             app:cardCornerRadius="40dp"
@@ -187,6 +186,7 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/achi_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="20sp"
@@ -216,11 +216,13 @@
                                 tools:ignore="HardcodedText,RtlSymmetry" />
 
                             <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/achi_description"
                                 android:layout_width="match_parent"
                                 android:layout_height="100dp"
                                 android:layout_marginStart="15dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginEnd="15dp"
+                                android:gravity="top"
                                 android:layout_marginBottom="20dp"
                                 android:gravity="top"
                                 android:scrollbars="vertical"
@@ -245,6 +247,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/achi_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"

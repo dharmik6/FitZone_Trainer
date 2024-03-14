@@ -10,7 +10,7 @@
 
 
     <ImageView
-        android:id="@+id/trainer_img"
+        android:id="@+id/data_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical"
@@ -32,6 +32,7 @@
 
 
         <ImageView
+            android:id="@+id/member_data_pro_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
@@ -55,8 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+
             android:orientation="vertical"
             tools:ignore="ScrollViewSize">
 
@@ -79,6 +79,8 @@
                     android:layout_below="@+id/rl_Jennifer_James"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
                     tools:ignore="NotSibling">
 
@@ -93,8 +95,8 @@
                         tools:ignore="Orientation,TextSizeCheck">
 
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/trainer_name"
+                        <TextView
+                            android:id="@+id/data_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
@@ -106,8 +108,8 @@
                             android:textStyle="bold"
                             tools:ignore="HardcodedText" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/Functional_Strength"
+                        <TextView
+                            android:id="@+id/data_email"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/trainer_name"
@@ -146,6 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_name"
                     android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"
                     tools:ignore="UselessLeaf">
 
                     <LinearLayout
@@ -173,7 +176,8 @@
                             android:textSize="16sp"
                             tools:ignore="HardcodedText,SpUsage" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
+                            android:id="@+id/data_gender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -205,7 +209,8 @@
                             android:textSize="16sp"
                             tools:ignore="HardcodedText,SpUsage" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
+                            android:id="@+id/data_age"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -237,7 +242,8 @@
                             android:textSize="16sp"
                             tools:ignore="HardcodedText,SpUsage" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
+                            android:id="@+id/data_goal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -269,7 +275,8 @@
                             android:textSize="16sp"
                             tools:ignore="HardcodedText,SpUsage" />
 
-                        <androidx.appcompat.widget.AppCompatTextView
+                        <TextView
+                            android:id="@+id/data_activity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -309,6 +316,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginTop="30dp"
                         android:layout_marginBottom="20dp"
                         app:cardCornerRadius="25dp"
@@ -320,160 +329,181 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentStart="true">
-
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/Weight"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:layout_alignParentStart="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="20dp"
-                                android:textColor="@color/black"
-                                android:text="Weight"
-                                android:fontFamily="@font/nunito_bold"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                tools:ignore="HardcodedText" />
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp">
 
                             <RelativeLayout
+                                android:id="@+id/rl_all_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/Weight"
-                                android:layout_marginTop="10dp"
-                                android:orientation="horizontal"
-                                tools:ignore="UselessLeaf">
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentStart="true">
 
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
+                                <TextView
+                                    android:id="@+id/Weight"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginEnd="200dp"
-                                    android:orientation="vertical"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentStart="true"
                                     android:layout_alignParentTop="true"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentEnd="true"
-                                    tools:ignore="UselessParent">
+                                    android:layout_marginStart="20dp"
+                                    android:layout_marginTop="20dp"
+                                    android:textColor="@color/black"
+                                    android:text="@string/weight"
+                                    android:fontFamily="@font/nunito_bold"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="HardcodedText" />
 
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        android:id="@+id/tvCurrent"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Current"
-                                        android:textSize="14sp"
-                                        android:textColor="@color/text"
-                                        android:fontFamily="@font/nunito_bold"
-                                        android:layout_marginStart="20dp"
-                                        android:layout_alignParentStart="true"
-                                        tools:ignore="HardcodedText,TooDeepLayout" />
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="60.6kg"
-                                        android:textSize="20sp"
-                                        android:textColor="@color/black"
-                                        android:fontFamily="@font/nunito_bold"
-                                        android:layout_marginStart="20dp"
-                                        android:layout_below="@+id/tvCurrent"
-                                        android:layout_alignParentStart="true"
-                                        android:layout_alignParentBottom="true"
-                                        tools:ignore="HardcodedText,TooDeepLayout" />
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:id="@+id/rl_hori_he"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="200dp"
-                                    android:orientation="horizontal"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentEnd="true"
-                                    tools:ignore="UselessParent">
-
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        android:id="@+id/tvHeaviest"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_alignParentStart="true"
-                                        android:fontFamily="@font/nunito_bold"
-                                        android:text="Heaviest"
-                                        android:textColor="@color/text"
-                                        android:textSize="14sp"
-                                        tools:ignore="HardcodedText,TooDeepLayout" />
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="66.00kg"
-                                        android:fontFamily="@font/nunito_bold"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:layout_marginEnd="20dp"
-                                        android:layout_alignParentEnd="true"
-                                        android:layout_alignParentBottom="true"
-                                        tools:ignore="HardcodedText,TooDeepLayout" />
-                                </RelativeLayout>
                                 <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="200dp"
+                                    android:layout_below="@+id/Weight"
+                                    android:layout_marginTop="10dp"
                                     android:orientation="horizontal"
-                                    android:layout_below="@+id/rl_hori_he"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentEnd="true"
-                                    tools:ignore="UselessParent">
+                                    tools:ignore="UselessLeaf">
 
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_marginEnd="200dp"
+                                        android:orientation="vertical"
+                                        android:layout_alignParentTop="true"
                                         android:layout_alignParentStart="true"
-                                        android:text="Lightest"
-                                        android:textColor="@color/text"
-                                        android:fontFamily="@font/nunito_bold"
-                                        android:textSize="14sp"
-                                        tools:ignore="HardcodedText,TooDeepLayout" />
-                                    <androidx.appcompat.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="66.00kg"
-                                        android:fontFamily="@font/nunito_bold"
-                                        android:textColor="@color/black"
-                                        android:textSize="14sp"
-                                        android:layout_marginEnd="20dp"
                                         android:layout_alignParentEnd="true"
-                                        android:layout_alignParentBottom="true"
-                                        tools:ignore="HardcodedText,TooDeepLayout" />
+                                        tools:ignore="UselessParent">
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvCurrent"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/current"
+                                            android:textSize="14sp"
+                                            android:textColor="@color/text"
+                                            android:fontFamily="@font/nunito_bold"
+                                            android:layout_marginStart="20dp"
+                                            android:layout_alignParentStart="true"
+                                            tools:ignore="HardcodedText,TooDeepLayout" />
+
+                                        <TextView
+                                            android:id="@+id/data_cur_weight"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="60.6kg"
+                                            android:textSize="20sp"
+                                            android:textColor="@color/black"
+                                            android:fontFamily="@font/nunito_bold"
+                                            android:layout_marginStart="20dp"
+                                            android:layout_below="@+id/tvCurrent"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentBottom="true"
+                                            tools:ignore="HardcodedText,TooDeepLayout" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/rl_hori_he"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="180dp"
+                                        android:orientation="horizontal"
+                                        android:layout_alignParentTop="true"
+                                        android:layout_alignParentStart="true"
+                                        android:layout_alignParentEnd="true"
+                                        tools:ignore="UselessParent">
+
+                                        <TextView
+                                            android:id="@+id/tvHeaviest"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="80dp"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentEnd="true"
+                                            android:fontFamily="@font/nunito_bold"
+                                            android:text="@string/heaviest"
+                                            android:textColor="@color/text"
+                                            android:textSize="14sp"
+                                            tools:ignore="HardcodedText,TooDeepLayout" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="66.00kg"
+                                            android:fontFamily="@font/nunito_bold"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:layout_marginEnd="20dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_alignParentBottom="true"
+                                            tools:ignore="HardcodedText,TooDeepLayout" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="180dp"
+                                        android:orientation="horizontal"
+                                        android:layout_below="@+id/rl_hori_he"
+                                        android:layout_alignParentStart="true"
+                                        android:layout_alignParentEnd="true"
+                                        tools:ignore="UselessParent">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="80dp"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentEnd="true"
+                                            android:text="@string/lightest"
+                                            android:textColor="@color/text"
+                                            android:fontFamily="@font/nunito_bold"
+                                            android:textSize="14sp"
+                                            tools:ignore="HardcodedText,TooDeepLayout" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="66.00kg"
+                                            android:fontFamily="@font/nunito_bold"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:layout_marginEnd="20dp"
+                                            android:layout_alignParentEnd="true"
+                                            android:layout_alignParentBottom="true"
+                                            tools:ignore="HardcodedText,TooDeepLayout" />
+                                    </RelativeLayout>
+
                                 </RelativeLayout>
 
                             </RelativeLayout>
 
-                        </RelativeLayout>
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="140dp"
-                            android:layout_marginBottom="10dp">
-
-                            <com.github.mikephil.charting.charts.LineChart
-                                android:id="@+id/lineChart"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginBottom="20dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                tools:ignore="MissingClass" />
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/rl_all_text"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10dp">
+
+                                <com.github.mikephil.charting.charts.LineChart
+                                    android:id="@+id/lineChart"
+                                    android:layout_width="300dp"
+                                    android:layout_height="200dp"
+                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginHorizontal="20dp"
+                                    android:layout_alignParentBottom="true"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_gravity="center"
+                                    tools:ignore="MissingClass" />
 
 
-                        </LinearLayout>
+                            </RelativeLayout>
+
+                        </RelativeLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -481,6 +511,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="20dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginVertical="40dp"
                         app:cardCornerRadius="25dp"
                         android:backgroundTint="@color/card_view"
@@ -499,8 +531,8 @@
                             android:layout_marginBottom="20dp"
                             tools:ignore="UselessLeaf">
 
-                            <androidx.appcompat.widget.AppCompatTextView
-                                android:id="@+id/BMI"
+                            <TextView
+                                android:id="@+id/totle_bmi_rep"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
@@ -508,7 +540,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="20dp"
-                                android:text="BMI"
+                                android:text="@string/bmi"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/nunito_bold"
                                 android:textSize="20sp"
@@ -523,16 +555,16 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginTop="80dp">
 
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="15.7"
-                                    android:textColor="@color/black"
-                                    android:fontFamily="@font/nunito_bold"
-                                    android:textSize="20sp"
-                                    android:layout_marginStart="20dp"
-                                    android:textStyle="bold"
-                                    tools:ignore="HardcodedText" />
+                                <!--                                <androidx.appcompat.widget.AppCompatTextView-->
+                                <!--                                    android:layout_width="wrap_content"-->
+                                <!--                                    android:layout_height="wrap_content"-->
+                                <!--                                    android:text="15.7"-->
+                                <!--                                    android:textColor="@color/black"-->
+                                <!--                                    android:fontFamily="@font/nunito_bold"-->
+                                <!--                                    android:textSize="20sp"-->
+                                <!--                                    android:layout_marginStart="20dp"-->
+                                <!--                                    android:textStyle="bold"-->
+                                <!--                                    tools:ignore="HardcodedText" />-->
 
                                 <RelativeLayout
                                     android:layout_width="wrap_content"
@@ -540,22 +572,23 @@
 
 
                                     <androidx.cardview.widget.CardView
-                                        android:id="@+id/cardView"
+                                        android:id="@+id/tv_result"
                                         android:layout_width="24dp"
                                         android:layout_height="24dp"
                                         android:layout_alignParentStart="true"
                                         android:layout_marginStart="140dp"
-                                        android:backgroundTint="#E53935"
                                         android:elevation="8dp"
                                         app:cardCornerRadius="25dp" />
+                                    <!--                                        android:backgroundTint="#E53935"-->
 
-                                    <androidx.appcompat.widget.AppCompatTextView
+                                    <TextView
+                                        android:id="@+id/value_text"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentEnd="true"
                                         android:layout_marginStart="10dp"
                                         android:layout_marginEnd="10dp"
-                                        android:layout_toEndOf="@+id/cardView"
+                                        android:layout_toEndOf="@+id/tv_result"
                                         android:fontFamily="@font/nunito_bold"
                                         android:text="Severely underweight"
                                         android:textColor="@color/black"
@@ -602,7 +635,7 @@
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Height"
+                                    android:text="@string/height"
                                     android:textStyle="bold"
                                     android:layout_alignParentStart="true"
                                     android:layout_alignParentBottom="true"
@@ -612,7 +645,8 @@
                                     android:fontFamily="@font/nunito_bold"
                                     tools:ignore="HardcodedText,RelativeOverlap"/>
 
-                                <androidx.appcompat.widget.AppCompatTextView
+                                <TextView
+                                    android:id="@+id/data_cur_height"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="224cm"

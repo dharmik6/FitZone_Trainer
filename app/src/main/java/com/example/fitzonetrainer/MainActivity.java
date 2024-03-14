@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout ;
     NavigationView navigationView;
     TextView text_title;
+    ImageView settings ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigationview);
         text_title = findViewById(R.id.text_title);
         ImageView menu = findViewById(R.id.show_menu);
+        settings = findViewById(R.id.settings);
+
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                redirectActivity(MainActivity.this , Settings.class);
+                finish();
+            }
+        });
 
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new FragmentAppointmentsHome(), false);
 
                 } else if (itemId == R.id.nav_members) {
+                    loadFragment(new FragmentMemberData(), false);
 
                 } else if (itemId == R.id.nav_achievements) {
                     loadFragment(new FragmentAchievementsList(), false);
@@ -60,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new FragmentWorkoutExercisesHome(), false);
 
                 } else if (itemId == R.id.nav_diet_plans) {
-                   redirectActivity(MainActivity.this , DietList.class);
+                   redirectActivity(MainActivity.this , DietListActivity.class);
 
                 } else if (itemId == R.id.nav_profile) {
                     redirectActivity(MainActivity.this , Profile.class);

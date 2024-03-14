@@ -1,10 +1,11 @@
 package com.example.fitzonetrainer;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,24 +18,25 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorkoutExercisesList extends AppCompatActivity {
-    MaterialSearchBar wor_exe_searchbar;
-    RecyclerView edit_exe_tr;
+public class WorkoutPlansList extends AppCompatActivity {
 
-    private WorkoutExercisesListAdapter adapter;
-    private List<ExercisesItemList> exercisesItemLists;
+    MaterialSearchBar plan_searchbar;
+    LinearLayout add_exercises;
+    RecyclerView plan_recyc;
+    private WorkoutPlansAdapter adapter;
+    private List<WorkoutPlansItemList> exercisesItemLists;
     private ProgressDialog progressDialog;
-    List<ExercisesItemList> filteredList;
-    @SuppressLint("MissingInflatedId")
+    List<WorkoutPlansItemList> filteredList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_exercises_list);
-        edit_exe_tr = findViewById(R.id.edit_exe_tr);
-        wor_exe_searchbar = findViewById(R.id.wor_exe_searchbar);
+        setContentView(R.layout.activity_workout_plans_list);
+
+        plan_recyc = findViewById(R.id.plan_recyc);
+        plan_searchbar = findViewById(R.id.plan_searchbar);
 
         // Setup MaterialSearchBar
-        wor_exe_searchbar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
+        plan_searchbar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
             @Override
             public void onSearchStateChanged(boolean enabled) {
                 // Handle search state changes
@@ -52,13 +54,13 @@ public class WorkoutExercisesList extends AppCompatActivity {
             }
         });
 
-        edit_exe_tr.setHasFixedSize(true);
-        edit_exe_tr.setLayoutManager(new LinearLayoutManager(this));
+        plan_recyc.setHasFixedSize(true);
+        plan_recyc.setLayoutManager(new LinearLayoutManager(this));
 
         exercisesItemLists = new ArrayList<>(); // Initialize exercisesItemLists
         filteredList = new ArrayList<>();
-        adapter = new WorkoutExercisesListAdapter(this, exercisesItemLists); // Use correct adapter
-        edit_exe_tr.setAdapter(adapter);
+        adapter = new WorkoutPlansAdapter(this, exercisesItemLists); // Use correct adapter
+        plan_recyc.setAdapter(adapter);
 
         // Show ProgressDialog
         progressDialog = new ProgressDialog(this);
@@ -68,13 +70,12 @@ public class WorkoutExercisesList extends AppCompatActivity {
 
         // Query Firestore for data
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("exercises").get().addOnSuccessListener(queryDocumentSnapshots -> {
+        db.collection("workout_plans").get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                 String name = documentSnapshot.getString("name");
-                String body = documentSnapshot.getString("body");
-                String image = documentSnapshot.getString("imageUrl");
-                String id = documentSnapshot.getId();
-                ExercisesItemList exe = new ExercisesItemList(name, body, image, id);
+                String body = documentSnapshot.getString("goal");
+                String image = documentSnapshot.getString("image");
+                WorkoutPlansItemList exe = new WorkoutPlansItemList(name, body, image);
                 exercisesItemLists.add(exe);
             }
             filteredList.addAll(exercisesItemLists); // Initialize filteredList with all members
@@ -92,6 +93,13 @@ public class WorkoutExercisesList extends AppCompatActivity {
             }
         });
 
+         add_exercises = findViewById(R.id.add_exercises);
+         add_exercises.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 startActivity(new Intent(WorkoutPlansList.this,CreateWorkoutPlan.class));
+             }
+         });
         ImageView backPress = findViewById(R.id.back);
         backPress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,11 +108,9 @@ public class WorkoutExercisesList extends AppCompatActivity {
             }
         });
     }
-
-
     private void filter(String query) {
-        List<ExercisesItemList> filteredList = new ArrayList<>();
-        for (ExercisesItemList member : exercisesItemLists) {
+        List<WorkoutPlansItemList> filteredList = new ArrayList<>();
+        for (WorkoutPlansItemList member : exercisesItemLists) {
             if (member.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(member);
             }
