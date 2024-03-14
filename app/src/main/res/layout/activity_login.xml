@@ -163,6 +163,7 @@
                         app:boxStrokeColor="#4E4A4A"
                         app:boxStrokeWidth="3dp"
                         app:hintTextColor="@color/hint_color"
+                        app:endIconMode="clear_text"
                         app:shapeAppearanceOverlay="@style/Button4"
                         tools:ignore="HardcodedText">
 

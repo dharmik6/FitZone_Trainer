@@ -82,19 +82,19 @@
             android:name=".AadhaarCard"
             android:exported="false" />
         <activity
-            android:name=".ProfileInformation"
-            android:exported="false" />
-        <activity
-            android:name=".Registration"
+            android:name=".SplashScreen"
             android:exported="false" />
         <activity
             android:name=".Login"
             android:exported="false" />
         <activity
+            android:name=".ProfileInformation"
+            android:exported="false" />
+        <activity
             android:name=".WorkoutPlanList"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".Registration"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

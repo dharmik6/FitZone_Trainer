@@ -161,6 +161,7 @@
                         app:boxBackgroundColor="@color/edit_text_background"
                         app:boxStrokeColor="#4E4A4A"
                         app:boxStrokeWidth="3dp"
+                        app:endIconMode="clear_text"
                         app:hintTextColor="@color/hint_color"
                         app:shapeAppearanceOverlay="@style/Button4"
                         tools:ignore="HardcodedText">
@@ -188,6 +189,7 @@
                         app:boxBackgroundColor="@color/edit_text_background"
                         app:boxStrokeColor="#4E4A4A"
                         app:boxStrokeWidth="3dp"
+                        app:endIconMode="clear_text"
                         app:hintTextColor="@color/hint_color"
                         app:shapeAppearanceOverlay="@style/Button4"
                         tools:ignore="HardcodedText">

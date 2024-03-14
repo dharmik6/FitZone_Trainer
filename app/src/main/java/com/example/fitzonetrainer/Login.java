@@ -22,8 +22,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,11 +29,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login extends AppCompatActivity {
-    Button login ;
-    TextInputEditText user_email,user_password;
+    Button login;
+    TextInputEditText user_email, user_password;
 
-    MaterialTextView txt_forgot_pass;
+    TextView txt_forgot_pass;
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +55,7 @@ public class Login extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                redirectActivity(Login.this , Registration.class);
+                redirectActivity(Login.this, Registration.class);
             }
         });
 
@@ -69,6 +68,7 @@ public class Login extends AppCompatActivity {
         // Start validation
         if (TextUtils.isEmpty(email)) {
             user_email.setError("Email is compulsory");
+            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
             return;
         }
         if (TextUtils.isEmpty(password)) {
@@ -77,6 +77,10 @@ public class Login extends AppCompatActivity {
         }
         if (!isValidEmail(email)) {
             Toast.makeText(Login.this, "Invalid Email Address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (password.length() != 6) {
+            user_password.setError("Password must be 6 digits");
             return;
         }
 
@@ -104,10 +108,10 @@ public class Login extends AppCompatActivity {
                                                 pd.dismiss(); // Dismiss the progress dialog
                                                 if (task.isSuccessful()) {
 
-                                                    SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+                                                    SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
                                                     SharedPreferences.Editor editor = pref.edit();
 
-                                                    editor.putBoolean("flag" ,true);
+                                                    editor.putBoolean("flag", true);
                                                     editor.apply();
 
                                                     Intent intent = new Intent(Login.this, MainActivity.class);
@@ -185,7 +189,9 @@ public class Login extends AppCompatActivity {
 
 
     private boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        // Email validation pattern
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return !TextUtils.isEmpty(email) && email.matches(emailPattern);
     }
 
     private void setLoggedInFlag() {
@@ -195,6 +201,7 @@ public class Login extends AppCompatActivity {
         editor.putBoolean("flag", true);
         editor.apply();
     }
+
     public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

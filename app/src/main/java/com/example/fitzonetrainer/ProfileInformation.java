@@ -57,6 +57,27 @@ public class ProfileInformation extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Check if phone number is empty
+                String userPhone = phone.getText().toString().trim();
+                if (userPhone.isEmpty()) {
+                    phone.setError("Phone number is required");
+                    return;
+                }
+
+                // Check if address is empty
+                String userAddress = address.getText().toString().trim();
+                if (userAddress.isEmpty()) {
+                    address.setError("Address is required");
+                    return;
+                }
+
+                // Check if phone number is 10 digits
+                if (!isValidPhoneNumber(userPhone)) {
+                    phone.setError("Phone number must be 10 digits");
+                    return;
+                }
+
+                // Proceed with saving data to Firestore
                 saveDataToFirestore();
             }
         });
@@ -71,7 +92,7 @@ public class ProfileInformation extends AppCompatActivity {
         ArrayAdapter<Integer> ageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-// Populate the age spinner with ages from 18 to 100
+        // Populate the age spinner with ages from 18 to 100
         for (int i = 18; i <= 100; i++) {
             ageAdapter.add(i);
         }
@@ -121,58 +142,55 @@ public class ProfileInformation extends AppCompatActivity {
         Intent intent = getIntent();
         String uid = intent.getStringExtra("uid");
 
-        // Check if all fields are filled
-        if (!userage.isEmpty() && !usergender.isEmpty() && !userspecialization.isEmpty() && !userexperience.isEmpty() && !userbio.isEmpty() && !userAddress.isEmpty() && !userPhone.isEmpty() && selectedImageUri != null) {
-            // Show progress dialog
-            progressDialog.show();
+        // Show progress dialog
+        progressDialog.show();
 
-            // Create a reference to the Firebase Storage location where you want to store the image
-            StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("trainer_images").child(uid);
+        // Create a reference to the Firebase Storage location where you want to store the image
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("trainer_images").child(uid);
 
-            // Upload the image to Firebase Storage
-            storageRef.putFile(selectedImageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        // Get the download URL of the uploaded image
-                        storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                            String imageUrl = uri.toString();
+        // Upload the image to Firebase Storage
+        storageRef.putFile(selectedImageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Get the download URL of the uploaded image
+                    storageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                        String imageUrl = uri.toString();
 
-                            // Create a map to store user data
-                            Map<String, Object> userData = new HashMap<>();
-                            userData.put("specialization", userspecialization);
-                            userData.put("gender", usergender);
-                            userData.put("age", userage);
-                            userData.put("experience", userexperience);
-                            userData.put("bio", userbio);
-                            userData.put("address", userAddress);
-                            userData.put("number", userPhone);
-                            userData.put("image", imageUrl); // Save the image URL instead of URI
+                        // Create a map to store user data
+                        Map<String, Object> userData = new HashMap<>();
+                        userData.put("specialization", userspecialization);
+                        userData.put("gender", usergender);
+                        userData.put("age", userage);
+                        userData.put("experience", userexperience);
+                        userData.put("bio", userbio);
+                        userData.put("address", userAddress);
+                        userData.put("number", userPhone);
+                        userData.put("image", imageUrl); // Save the image URL instead of URI
 
-                            // Add the user data to Firestore using the same UID
-                            db.collection("trainers")
-                                    .document(uid)
-                                    .update(userData)
-                                    .addOnSuccessListener(aVoid -> {
-                                        // Dismiss progress dialog
-                                        progressDialog.dismiss();
-                                        Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
-                                        // Redirect to the next activity
-                                        redirectActivity(ProfileInformation.this, MainActivity.class, uid);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        // Dismiss progress dialog
-                                        progressDialog.dismiss();
-                                        // Failed to save data
-                                        Toast.makeText(ProfileInformation.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                                    });
-                        });
-                    })
-                    .addOnFailureListener(e -> {
-                        // Dismiss progress dialog
-                        progressDialog.dismiss();
-                        // Handle failures
-                        Toast.makeText(ProfileInformation.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                        // Add the user data to Firestore using the same UID
+                        db.collection("trainers")
+                                .document(uid)
+                                .update(userData)
+                                .addOnSuccessListener(aVoid -> {
+                                    // Dismiss progress dialog
+                                    progressDialog.dismiss();
+                                    Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
+                                    // Redirect to the next activity
+                                    redirectActivity(ProfileInformation.this, MainActivity.class, uid);
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Dismiss progress dialog
+                                    progressDialog.dismiss();
+                                    // Failed to save data
+                                    Toast.makeText(ProfileInformation.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                                });
                     });
-        }
+                })
+                .addOnFailureListener(e -> {
+                    // Dismiss progress dialog
+                    progressDialog.dismiss();
+                    // Handle failures
+                    Toast.makeText(ProfileInformation.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                });
     }
 
     // In the Registration activity
@@ -182,5 +200,10 @@ public class ProfileInformation extends AppCompatActivity {
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
+    }
+
+    // Helper method to validate phone number
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return phoneNumber.length() == 10;
     }
 }
