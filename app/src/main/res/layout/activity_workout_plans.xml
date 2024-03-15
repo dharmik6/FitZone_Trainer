@@ -210,10 +210,12 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/created_date"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
                                     android:layout_marginTop="10dp"
+                                    android:text="Trainer"
                                     android:layout_marginEnd="15dp"
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
@@ -231,6 +233,7 @@
                                     tools:ignore="ContentDescription" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/created_level"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="30dp"
@@ -275,6 +278,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:text="15-03-2024"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
