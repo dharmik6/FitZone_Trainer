@@ -90,13 +90,14 @@ public class PendingBookingDetail extends AppCompatActivity {
             public void onClick(View v) {
                 // Update paymentStatus to "confirmed" in Firestore
                 db.collection("bookings").document(id)
-                        .update("paymentStatus", "canceld")
+                        .update("paymentStatus", "confirmed")
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 // Update successful
                                 Toast.makeText(PendingBookingDetail.this, "Booking confirmed", Toast.LENGTH_SHORT).show();
                                 // Optionally, you may also finish this activity or perform any other action after the update
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -122,6 +123,7 @@ public class PendingBookingDetail extends AppCompatActivity {
                                 // Update successful
                                 Toast.makeText(PendingBookingDetail.this, "Booking canceled", Toast.LENGTH_SHORT).show();
                                 // Optionally, you may also finish this activity or perform any other action after the update
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
