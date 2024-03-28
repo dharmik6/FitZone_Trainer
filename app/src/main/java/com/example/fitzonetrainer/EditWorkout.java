@@ -54,13 +54,6 @@ public class EditWorkout extends AppCompatActivity {
         add_wor_pan = findViewById(R.id.add_wor_pan);
         add_wor_plan_but = findViewById(R.id.add_wor_plan_but);
 
-        wor_plan_recyc.setHasFixedSize(true);
-        wor_plan_recyc.setLayoutManager(new LinearLayoutManager(this));
-
-        exercisesItemLists = new ArrayList<>();
-        adapter = new EditWorkoutAdapter(this, exercisesItemLists);
-        wor_plan_recyc.setAdapter(adapter);
-
         Intent intent = getIntent();
         String wid = intent.getStringExtra("wid");
         String name = intent.getStringExtra("name");
@@ -68,6 +61,14 @@ public class EditWorkout extends AppCompatActivity {
 
         String id = intent.getStringExtra("id");
 
+        wor_plan_recyc.setHasFixedSize(true);
+        wor_plan_recyc.setLayoutManager(new LinearLayoutManager(this));
+
+        exercisesItemLists = new ArrayList<>();
+        adapter = new EditWorkoutAdapter(this, exercisesItemLists,wid);
+        wor_plan_recyc.setAdapter(adapter);
+
+//        Log.d("wid",wid);
         img_wor_plan_name.setText(name);
         // Load image into ImageView using Glide library
         Glide.with(this)

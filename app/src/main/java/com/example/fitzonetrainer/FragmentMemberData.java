@@ -78,7 +78,7 @@ public class FragmentMemberData extends Fragment {
                 String name = documentSnapshot.getString("name");
                 String email = documentSnapshot.getString("email");
                 String image = documentSnapshot.getString("image");
-                String uid = documentSnapshot.getString("name");
+                String uid = documentSnapshot.getId();
 //                memberList.add(new MemberList(name, email,image));
                 MemberList member = new MemberList(name, email,image,uid);
                 memberList.add(member);

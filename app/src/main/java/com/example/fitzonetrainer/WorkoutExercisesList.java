@@ -1,14 +1,15 @@
 package com.example.fitzonetrainer;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -22,9 +23,9 @@ public class WorkoutExercisesList extends AppCompatActivity {
     RecyclerView edit_exe_tr;
 
     private WorkoutExercisesListAdapter adapter;
-    private List<ExercisesItemList> exercisesItemLists;
+    private List<WorkoutExercisesListItem> exercisesItemLists;
     private ProgressDialog progressDialog;
-    List<ExercisesItemList> filteredList;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,9 @@ public class WorkoutExercisesList extends AppCompatActivity {
         setContentView(R.layout.activity_workout_exercises_list);
         edit_exe_tr = findViewById(R.id.edit_exe_tr);
         wor_exe_searchbar = findViewById(R.id.wor_exe_searchbar);
+
+        Intent intent = getIntent();
+        String wid = intent.getStringExtra("wid");
 
         // Setup MaterialSearchBar
         wor_exe_searchbar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
@@ -56,7 +60,6 @@ public class WorkoutExercisesList extends AppCompatActivity {
         edit_exe_tr.setLayoutManager(new LinearLayoutManager(this));
 
         exercisesItemLists = new ArrayList<>(); // Initialize exercisesItemLists
-        filteredList = new ArrayList<>();
         adapter = new WorkoutExercisesListAdapter(this, exercisesItemLists); // Use correct adapter
         edit_exe_tr.setAdapter(adapter);
 
@@ -74,17 +77,51 @@ public class WorkoutExercisesList extends AppCompatActivity {
                 String body = documentSnapshot.getString("body");
                 String image = documentSnapshot.getString("imageUrl");
                 String id = documentSnapshot.getId();
-                ExercisesItemList exe = new ExercisesItemList(name, body, image, id);
+                WorkoutExercisesListItem exe = new WorkoutExercisesListItem(name, body, image, id,wid);
                 exercisesItemLists.add(exe);
             }
-            filteredList.addAll(exercisesItemLists); // Initialize filteredList with all members
 
-            adapter.notifyDataSetChanged();
-            // Dismiss ProgressDialog when data is loaded
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            // Now that we have fetched all exercises, let's filter out the ones that are already in the workout plan
+            List<WorkoutExercisesListItem> filteredExercises = new ArrayList<>();
+            if (wid != null) {
+                // Fetch the exename array of the workout plan
+                db.collection("workout_plans").document(wid).get().addOnSuccessListener(workoutPlanDocument -> {
+                    if (workoutPlanDocument.exists()) {
+                        List<String> exename = (List<String>) workoutPlanDocument.get("exename");
+                        if (exename != null) {
+                            // Iterate through all exercises and exclude the ones that are present in the exename array
+                            for (WorkoutExercisesListItem exercise : exercisesItemLists) {
+                                if (!exename.contains(exercise.getId())) {
+                                    filteredExercises.add(exercise);
+                                }
+                            }
+                        } else {
+                            filteredExercises.addAll(exercisesItemLists);
+                        }
+                    } else {
+                        filteredExercises.addAll(exercisesItemLists);
+                    }
+
+                    // Update the adapter with the filtered exercises
+                    adapter.filterList(filteredExercises);
+                    // Dismiss ProgressDialog when data is loaded
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                }).addOnFailureListener(e -> {
+                    // Handle failures
+                    if (progressDialog != null && progressDialog.isShowing()) {
+                        progressDialog.dismiss();
+                    }
+                });
+            } else {
+                // If wid is null, add all exercises to the filtered list
+                filteredExercises.addAll(exercisesItemLists);
+                adapter.filterList(filteredExercises);
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
             }
-
         }).addOnFailureListener(e -> {
             // Handle failures
             if (progressDialog != null && progressDialog.isShowing()) {
@@ -103,8 +140,8 @@ public class WorkoutExercisesList extends AppCompatActivity {
 
 
     private void filter(String query) {
-        List<ExercisesItemList> filteredList = new ArrayList<>();
-        for (ExercisesItemList member : exercisesItemLists) {
+        List<WorkoutExercisesListItem> filteredList = new ArrayList<>();
+        for (WorkoutExercisesListItem member : exercisesItemLists) {
             if (member.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(member);
             }
