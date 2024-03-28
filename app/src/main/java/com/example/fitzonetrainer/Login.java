@@ -16,6 +16,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,14 @@ public class Login extends AppCompatActivity {
         user_password = findViewById(R.id.tr_password);
         txt_forgot_pass = findViewById(R.id.txt_forgot_pass);
         login = findViewById(R.id.btn_login);
+
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance(); // Initialize Firebase Auth
 

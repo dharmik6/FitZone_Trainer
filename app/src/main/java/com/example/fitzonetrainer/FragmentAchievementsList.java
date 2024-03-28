@@ -1,5 +1,6 @@
 package com.example.fitzonetrainer;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,7 +35,9 @@ public class FragmentAchievementsList extends Fragment {
     private List<CertificateList> certificateLists;
     LinearLayout addAchievements;
     ProgressDialog progressDialog;
+    TextView dataNotFoundText;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +62,9 @@ public class FragmentAchievementsList extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading Certificates...");
         progressDialog.setCancelable(false);
+
+        // Initialize dataNotFoundText
+        dataNotFoundText = view.findViewById(R.id.data_not_found_text);
 
         return view;
     }
@@ -98,6 +105,9 @@ public class FragmentAchievementsList extends Fragment {
 
                             // Notify the adapter that the dataset has changed
                             adapter.notifyDataSetChanged();
+
+                            // Update visibility of dataNotFoundText based on the presence of data
+                            updateDataNotFoundVisibility();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -109,6 +119,14 @@ public class FragmentAchievementsList extends Fragment {
                             Toast.makeText(getContext(), "Failed to fetch certificates: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+        }
+    }
+
+    private void updateDataNotFoundVisibility() {
+        if (certificateLists != null && certificateLists.isEmpty()) {
+            dataNotFoundText.setVisibility(View.VISIBLE);
+        } else {
+            dataNotFoundText.setVisibility(View.GONE);
         }
     }
 }

@@ -53,6 +53,14 @@ public class CreateWorkoutPlan extends AppCompatActivity {
         plan_image = findViewById(R.id.plan_image);
         plan_camera = findViewById(R.id.plan_camera);
 
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
         // Initialize FirebaseFirestore and StorageReference
         db = FirebaseFirestore.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference();

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,12 +29,20 @@ public class ExercisesList extends AppCompatActivity {
     private ExercisesAdapter adapter;
     private List<ExercisesItemList> exercisesItemLists;
     private ProgressDialog progressDialog;
+
+
+    private TextView dataNotFoundText;
     List<ExercisesItemList> filteredList;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises_list);
+
+        dataNotFoundText = findViewById(R.id.data_not_show);
+        updateDataNotFoundVisibility();
+
 
         exe_recyc = findViewById(R.id.exe_recyc);
         add_exe = findViewById(R.id.add_exe);
@@ -131,5 +141,13 @@ public class ExercisesList extends AppCompatActivity {
             }
         }
         adapter.filterList(filteredList);
+    }
+
+    private void updateDataNotFoundVisibility() {
+        if (filteredList != null && filteredList.isEmpty()) {
+            dataNotFoundText.setVisibility(View.VISIBLE);
+        } else {
+            dataNotFoundText.setVisibility(View.GONE);
+        }
     }
 }

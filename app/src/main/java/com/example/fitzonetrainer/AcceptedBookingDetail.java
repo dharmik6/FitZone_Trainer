@@ -7,6 +7,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +30,14 @@ public class AcceptedBookingDetail extends AppCompatActivity {
         start_time = findViewById(R.id.start_time);
         end_time = findViewById(R.id.end_time);
         booking_status = findViewById(R.id.booking_status);
+
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");

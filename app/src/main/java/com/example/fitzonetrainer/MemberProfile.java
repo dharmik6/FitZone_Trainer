@@ -99,10 +99,8 @@ public class MemberProfile extends AppCompatActivity {
                     }
 
                     // Get the weight and height as strings from TextViews
-                    String weightStr = memberweight;
-//                    .getText().toString().trim();
-                    String heightStr = memberheight;
-//                    .getText().toString().trim();
+                    String weightStr = memberweight != null ? memberweight : "0";
+                    String heightStr = memberheight != null ? memberheight : "0";
 
                     // Parse the strings to floats, if they are numeric
                     float weight = TextUtils.isDigitsOnly(weightStr) ? Float.parseFloat(weightStr) : 0;

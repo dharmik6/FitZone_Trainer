@@ -25,6 +25,9 @@
             android:name=".WorkoutExercisesList"
             android:exported="false" />
         <activity
+            android:name=".CreateWorkoutPlan"
+            android:exported="false" />
+        <activity
             android:name=".UpdateCertificate"
             android:exported="false" />
         <activity
