@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.drjacky.imagepicker.ImagePicker;
+import com.github.drjacky.imagepicker.constant.ImageProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,6 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class ProfileInformation extends AppCompatActivity {
     CircleImageView pro_image;
@@ -119,8 +123,18 @@ public class ProfileInformation extends AppCompatActivity {
         user_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iuser = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(iuser, PICK_IMAGE_REQUEST);
+                // Use ImagePicker to select an image from camera or gallery
+                ImagePicker.Companion.with(ProfileInformation.this)
+                        .crop()         // Enable cropping
+                        .cropOval()     // Crop shape to oval
+                        .provider(ImageProvider.BOTH) // Or bothCameraGallery()
+                        .createIntentFromDialog(new Function1<Intent, Unit>() {
+                            @Override
+                            public Unit invoke(Intent it) {
+                                startActivityForResult(it, PICK_IMAGE_REQUEST);
+                                return null;
+                            }
+                        });
             }
         });
 
@@ -130,11 +144,16 @@ public class ProfileInformation extends AppCompatActivity {
         progressDialog.setCancelable(false);
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
+            pro_image.setImageURI(selectedImageUri);
+        } else if (resultCode == RESULT_OK && data != null) {
+            // Use ImagePicker's getFilePath method to retrieve the selected image URI
+            selectedImageUri = Uri.parse(ImagePicker.Companion.getFilePath(data));
             pro_image.setImageURI(selectedImageUri);
         }
     }
@@ -177,31 +196,31 @@ public class ProfileInformation extends AppCompatActivity {
                         userData.put("number", userPhone);
                         userData.put("image", imageUrl); // Save the image URL instead of URI
 
-                            // Add the user data to Firestore using the same UID
-                            db.collection("trainers")
-                                    .document(uid)
-                                    .update(userData)
-                                    .addOnSuccessListener(aVoid -> {
-                                        // Dismiss progress dialog
-                                        progressDialog.dismiss();
-                                        Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
-                                        // Redirect to the next activity
-                                        redirectActivity(ProfileInformation.this, Login.class, uid);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        // Dismiss progress dialog
-                                        progressDialog.dismiss();
-                                        // Failed to save data
-                                        Toast.makeText(ProfileInformation.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                                    });
-                        });
-                    })
-                    .addOnFailureListener(e -> {
-                        // Dismiss progress dialog
-                        progressDialog.dismiss();
-                        // Handle failures
-                        Toast.makeText(ProfileInformation.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                        // Add the user data to Firestore using the same UID
+                        db.collection("trainers")
+                                .document(uid)
+                                .update(userData)
+                                .addOnSuccessListener(aVoid -> {
+                                    // Dismiss progress dialog
+                                    progressDialog.dismiss();
+                                    Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
+                                    // Redirect to the next activity
+                                    redirectActivity(ProfileInformation.this, Login.class, uid);
+                                })
+                                .addOnFailureListener(e -> {
+                                    // Dismiss progress dialog
+                                    progressDialog.dismiss();
+                                    // Failed to save data
+                                    Toast.makeText(ProfileInformation.this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                                });
                     });
+                })
+                .addOnFailureListener(e -> {
+                    // Dismiss progress dialog
+                    progressDialog.dismiss();
+                    // Handle failures
+                    Toast.makeText(ProfileInformation.this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                });
 
     }
 

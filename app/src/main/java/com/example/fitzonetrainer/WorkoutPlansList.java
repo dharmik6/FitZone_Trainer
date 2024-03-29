@@ -28,6 +28,7 @@ public class WorkoutPlansList extends AppCompatActivity {
     RecyclerView plan_recyc;
     private TextView dataNotFoundText;
     private WorkoutPlansAdapter adapter;
+
     private List<WorkoutPlansItemList> exercisesItemLists = new ArrayList<>();
     private ProgressDialog progressDialog;
     private ListenerRegistration listenerRegistration;

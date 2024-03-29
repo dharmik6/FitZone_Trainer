@@ -13,9 +13,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +39,7 @@ public class EditWorkout extends AppCompatActivity {
     Button add_wor_plan_but;
     RecyclerView wor_plan_recyc;
     ProgressDialog progressDialog;
+    private TextView dataNotFoundText;
     private EditWorkoutAdapter adapter;
     private List<WorExercisesItemList> exercisesItemLists;
 
@@ -45,6 +48,10 @@ public class EditWorkout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_workout);
+
+        dataNotFoundText = findViewById(R.id.data_not_show);
+        updateDataNotFoundVisibility();
+
 
         img_wor_plan_image = findViewById(R.id.img_wor_plan_image);
         img_wor_plan_name = findViewById(R.id.img_wor_plan_name);
@@ -148,6 +155,8 @@ public class EditWorkout extends AppCompatActivity {
                 });
     }
 
+
+
     // Function to fetch exercise details
     private void fetchExerciseDetails(String exerciseId) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -169,5 +178,13 @@ public class EditWorkout extends AppCompatActivity {
     // Function to update total exercises count
     private void updateTotalExercises(int size) {
         total_exe.setText("Total Exercises: " + size);
+    }
+
+    private void updateDataNotFoundVisibility() {
+        if (exercisesItemLists != null && exercisesItemLists.isEmpty()) {
+            dataNotFoundText.setVisibility(View.VISIBLE);
+        } else {
+            dataNotFoundText.setVisibility(View.GONE);
+        }
     }
 }

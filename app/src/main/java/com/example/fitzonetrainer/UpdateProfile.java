@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.drjacky.imagepicker.ImagePicker;
+import com.github.drjacky.imagepicker.constant.ImageProvider;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,12 +32,15 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
+
 public class UpdateProfile extends AppCompatActivity {
     private StorageReference storageRef;
     private Uri selectedImageUri;
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    AppCompatEditText up_name  ,up_phone , up_address ,up_experience , up_bio ;
+    AppCompatEditText up_name , up_phone, up_address ,up_experience , up_bio ;
     Spinner up_Specialization ,up_gender , up_age ;
     Button btn_update ;
     ImageView up_image ;
@@ -56,7 +61,6 @@ public class UpdateProfile extends AppCompatActivity {
             }
         });
 
-
         up_name = findViewById(R.id.up_name);
         up_phone = findViewById(R.id.up_phone);
         up_address = findViewById(R.id.up_address);
@@ -73,7 +77,7 @@ public class UpdateProfile extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference();
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-            String trainerId = currentUser.getUid();
+        String trainerId = currentUser.getUid();
 
 
         // age spinner
@@ -144,10 +148,21 @@ public class UpdateProfile extends AppCompatActivity {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iuser = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(iuser, PICK_IMAGE_REQUEST);
+                // Use ImagePicker to select an image from camera or gallery
+                ImagePicker.Companion.with(UpdateProfile.this)
+                        .crop()         // Enable cropping
+                        .cropOval()     // Crop shape to oval
+                        .provider(ImageProvider.BOTH) // Or bothCameraGallery()
+                        .createIntentFromDialog(new Function1<Intent, Unit>() {
+                            @Override
+                            public Unit invoke(Intent it) {
+                                startActivityForResult(it, PICK_IMAGE_REQUEST);
+                                return null;
+                            }
+                        });
             }
         });
+
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         UpdateProfile.super.onActivityResult(requestCode, resultCode, data);

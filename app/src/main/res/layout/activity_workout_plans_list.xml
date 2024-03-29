@@ -137,7 +137,7 @@
             android:layout_below="@+id/add_exercises">
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -145,13 +145,28 @@
                 android:layout_marginEnd="10dp"
                 tools:ignore="UselessLeaf">
 
+                <TextView
+                    android:id="@+id/data_not_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Data not found "
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:layout_marginTop="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"/>
+
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/plan_recyc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"
                     tools:listitem="@layout/workout_plans_list_item" />
-            </LinearLayout>
+            </RelativeLayout>
 
         </ScrollView>
 

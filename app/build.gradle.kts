@@ -33,14 +33,15 @@ dependencies {
 
     //image circle
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.github.Drjacky:ImagePicker:2.3.22")
     //graph chart
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //BMI
     implementation ("com.github.Gruzer:simple-gauge-android:0.3.1")
 
-    implementation ("com.facebook.shimmer:shimmer:0.5.0")
-
     //shimmer
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+    implementation ("com.todkars:shimmer-recyclerview:0.4.1")
 
     //searchView
     implementation ("com.github.mancj:MaterialSearchBar:0.8.5")
