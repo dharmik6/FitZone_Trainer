@@ -70,8 +70,9 @@ public class Settings extends AppCompatActivity {
         editor.putBoolean("flag", false);
         editor.apply();
 
-        // After logging out, navigate to the LoginActivity
+        // After logging out, navigate to the LoginActivity and clear all previous activities
         Intent intent = new Intent(Settings.this, Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish(); // Close the current activity
     }
