@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -22,6 +23,7 @@ import java.util.Map;
 
 public class Registration extends AppCompatActivity {
     TextInputEditText trainer_name, trainer_email, trainer_pass;
+    TextView login_account ;
     AppCompatButton btn_registration;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
@@ -30,14 +32,6 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
-        ImageView backPress = findViewById(R.id.back);
-        backPress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
 
         // Initialize Firestore
@@ -48,6 +42,15 @@ public class Registration extends AppCompatActivity {
         trainer_email = findViewById(R.id.member_email);
         trainer_pass = findViewById(R.id.member_pass);
         btn_registration = findViewById(R.id.btn_registration);
+        login_account = findViewById(R.id.login_account);
+
+        login_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registration.this , Login.class);
+                startActivity(intent);
+            }
+        });
 
         // Initialize progress dialog
         progressDialog = new ProgressDialog(this);
