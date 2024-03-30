@@ -27,6 +27,7 @@
             android:backgroundTint="#81776E6E">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/nav_imag"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_profile_circle"
@@ -42,6 +43,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nav_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="person name"
@@ -52,6 +54,7 @@
                 tools:ignore="HardcodedText,RtlSymmetry" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nav_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="xyz@email.com"

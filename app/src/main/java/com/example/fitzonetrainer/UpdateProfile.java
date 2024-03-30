@@ -105,6 +105,13 @@ public class UpdateProfile extends AppCompatActivity {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (up_phone.length() != 10) {
+                    up_phone.setError("Phone number must have 10 digits");
+                    up_phone.requestFocus();
+                    return;
+                }
+
                 String name = up_name.getText().toString().trim();
                 String phone = up_phone.getText().toString().trim();
                 String address = up_address.getText().toString().trim();

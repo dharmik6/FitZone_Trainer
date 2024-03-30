@@ -111,6 +111,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_below="@id/text">
                         <ImageView
+                            android:id="@+id/IMG_adhar_front"
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
                             android:src="@drawable/default_image"
@@ -185,6 +186,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_below="@id/text2">
                         <ImageView
+                            android:id="@+id/IMG_adhar_back"
                             android:layout_width="match_parent"
                             android:layout_height="250dp"
                             android:src="@drawable/default_image"

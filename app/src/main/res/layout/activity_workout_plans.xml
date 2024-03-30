@@ -57,17 +57,6 @@
                 tools:ignore="HardcodedText" />
 
 
-            <ImageView
-                android:id="@+id/settings"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
@@ -210,12 +199,11 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/created_date"
+                                    android:id="@+id/created"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
                                     android:layout_marginTop="10dp"
-                                    android:text="Trainer"
                                     android:layout_marginEnd="15dp"
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
@@ -233,7 +221,6 @@
                                     tools:ignore="ContentDescription" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/created_level"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="30dp"
@@ -245,6 +232,7 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/created_level"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
@@ -278,13 +266,13 @@
                                     tools:ignore="HardcodedText,SpUsage" />
 
                                 <androidx.appcompat.widget.AppCompatTextView
-                                    android:text="15-03-2024"
+                                    android:id="@+id/created_date"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="20dp"
                                     android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="20dp"
                                     android:layout_marginEnd="15dp"
+                                    android:layout_marginBottom="20dp"
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"

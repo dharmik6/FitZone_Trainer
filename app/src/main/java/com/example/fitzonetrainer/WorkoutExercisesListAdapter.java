@@ -1,6 +1,7 @@
 package com.example.fitzonetrainer;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -74,6 +75,7 @@ public class WorkoutExercisesListAdapter  extends RecyclerView.Adapter<WorkoutEx
 //                    intent.putExtra("id" , item.getId());
                     // Start the activity
                     context.startActivity(intent);
+                    ((Activity) context).finish();
                 }
             }
         });

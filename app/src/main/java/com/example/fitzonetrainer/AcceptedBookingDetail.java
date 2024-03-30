@@ -1,9 +1,9 @@
 package com.example.fitzonetrainer;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,11 +19,13 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 public class AcceptedBookingDetail extends AppCompatActivity {
     AppCompatTextView booking_id, member_id, booking_date, start_time, end_time, booking_status;
     FirebaseFirestore db;
+    ProgressDialog progressDialog; // Declare ProgressDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accepted_booking_detail);
+
         booking_id = findViewById(R.id.booking_id);
         member_id = findViewById(R.id.member_id);
         booking_date = findViewById(R.id.bookig_date);
@@ -51,10 +53,18 @@ public class AcceptedBookingDetail extends AppCompatActivity {
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
+        // Initialize ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Fetching data..."); // Set the message for the dialog
+        progressDialog.setCancelable(false); // Set whether the dialog is cancelable
+
+        showProgressDialog(); // Show ProgressDialog before fetching data from Firestore
+
         db.collection("bookings").document(id).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        dismissProgressDialog(); // Dismiss the ProgressDialog after data retrieval, whether success or failure
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
@@ -73,7 +83,6 @@ public class AcceptedBookingDetail extends AppCompatActivity {
                             } else {
                                 // Handle the case where the document does not exist
                             }
-
                         } else {
                             // Handle exceptions while fetching data from Firestore
                             FirebaseFirestoreException exception = (FirebaseFirestoreException) task.getException();
@@ -81,5 +90,13 @@ public class AcceptedBookingDetail extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void showProgressDialog() {
+        progressDialog.show(); // Show the ProgressDialog
+    }
+
+    private void dismissProgressDialog() {
+        progressDialog.dismiss(); // Dismiss the ProgressDialog
     }
 }

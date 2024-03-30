@@ -12,11 +12,6 @@
         tools:ignore="HardcodedText" />
 
     <item
-        android:id="@+id/nav_massages"
-        android:title="Massages"
-        tools:ignore="HardcodedText"/> >
-
-    <item
         android:id="@+id/nav_workout_exercises"
         android:title="Workout &amp; exercises"
         tools:ignore="HardcodedText" />

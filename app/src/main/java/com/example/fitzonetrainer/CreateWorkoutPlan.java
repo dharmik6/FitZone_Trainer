@@ -1,5 +1,4 @@
 package com.example.fitzonetrainer;
-
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -20,11 +19,15 @@ import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -40,7 +43,6 @@ public class CreateWorkoutPlan extends AppCompatActivity {
     private StorageReference storageRef;
     private Uri selectedImageUri;
     private static final int PICK_IMAGE_REQUEST = 1;
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -150,17 +152,27 @@ public class CreateWorkoutPlan extends AppCompatActivity {
             saveDataToFirestore(planName, planGoal, null);
         }
     }
+
+    // Inside saveDataToFirestore method
     private void saveDataToFirestore(String planName, String planGoal, String imageUrl) {
         // Create a new document in the "workout_plans" collection with the provided data
         Map<String, Object> workoutPlan = new HashMap<>();
         workoutPlan.put("name", planName);
         workoutPlan.put("goal", planGoal);
+        workoutPlan.put("created", "Trainer");
+
+        // Get current date in dd/mm/yyyy format
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = sdf.format(new Date());
+
+        workoutPlan.put("createdDate", currentDate);
+
         if (imageUrl != null) {
             workoutPlan.put("image", imageUrl); // Add the image URL to the document if it exists
         }
-        String name = plan_name.getText().toString();
+
         // Add the workout plan data to Firestore
-        db.collection("workout_plans").document(name)
+        db.collection("workout_plans").document(planName)
                 .set(workoutPlan)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -171,7 +183,6 @@ public class CreateWorkoutPlan extends AppCompatActivity {
                         finish(); // Finish the activity after successful addition
                     }
                 })
-
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -181,5 +192,4 @@ public class CreateWorkoutPlan extends AppCompatActivity {
                     }
                 });
     }
-
 }

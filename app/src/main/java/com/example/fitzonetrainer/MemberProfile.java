@@ -8,9 +8,11 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,7 +44,11 @@ public class MemberProfile extends AppCompatActivity {
     ImageView member_data_pro_back;
     TextView data_cur_weight,data_cur_height,data_activity,data_gender,data_goal,data_age,data_email;
     LineChart lineChart;
+    ImageView call ;
     ProgressDialog progressDialog;
+
+    String phone ;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,7 @@ public class MemberProfile extends AppCompatActivity {
         data_cur_weight = findViewById(R.id.data_cur_weight);
         data_image = findViewById(R.id.data_image);
         lineChart = findViewById(R.id.lineChart);
+        call = findViewById(R.id.btn_call);
         member_data_pro_back = findViewById(R.id.member_data_pro_back);
         member_data_pro_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,16 +80,17 @@ public class MemberProfile extends AppCompatActivity {
 //        String memberemailid = intent.getStringExtra("email");
 
                 // Query Firestore for data
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("users").document(memberid).get().addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        String membername = documentSnapshot.getString("name");
-                        String memberactivity = documentSnapshot.getString("activity");
-                        String membergoal = documentSnapshot.getString("goal");
-//                String memberweight = documentSnapshot.getString("weight");
-                        String memberheight = documentSnapshot.getString("height");
-                        String memberimage = documentSnapshot.getString("image");
-                        String userId = documentSnapshot.getId();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document(memberid).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String membername = documentSnapshot.getString("name");
+                String memberactivity = documentSnapshot.getString("activity");
+                String membergoal = documentSnapshot.getString("goal");
+                 phone = documentSnapshot.getString("number");
+                String memberheight = documentSnapshot.getString("height");
+                String memberimage = documentSnapshot.getString("image");
+                String userId = documentSnapshot.getId();
+
 
                         FirebaseFirestore db1 = FirebaseFirestore.getInstance();
                         db1.collection("users").document(userId).collection("weight").get().addOnSuccessListener(queryDocumentSnapshots1 -> {
@@ -219,6 +227,17 @@ public class MemberProfile extends AppCompatActivity {
                         });
                     }
                 });
+
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Create an implicit intent to open the phone dialer with the phone number populated
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phone));
+                startActivity(intent);
+            }
+        });
             }
             private void setChart(List<Entry> entries) {
                 LineDataSet dataSet = new LineDataSet(entries, "Weight Entries");

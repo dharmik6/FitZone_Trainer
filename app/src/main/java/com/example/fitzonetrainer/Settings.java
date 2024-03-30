@@ -19,7 +19,6 @@ import android.widget.Toast;
 public class Settings extends AppCompatActivity {
 
     RelativeLayout account  , logout ;
-    Switch dark_switch;
 
     boolean isDarkModeEnabled = false;
     @SuppressLint("MissingInflatedId")
@@ -38,7 +37,6 @@ public class Settings extends AppCompatActivity {
 
         account = findViewById(R.id.rl_account);
         logout = findViewById(R.id.rl_logout);
-        dark_switch = findViewById(R.id.dark_switch);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,19 +53,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        dark_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    // Dark mode enabled, apply dark theme
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                } else {
-//                    // Dark mode disabled, apply light theme
-//                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                }
-//                recreate(); // Recreate the activity to apply the new theme
-            }
-        });
+      
 
         account.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,21 +17,28 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Profile extends AppCompatActivity {
-AppCompatTextView tr_name ,tr_email ,tr_catagory , tr_mobile,tr_gender,tr_bio,tr_address,tr_experience,tr_charg;
-ImageView tr_image ;
-CardView edit ;
+    AppCompatTextView tr_name, tr_email, tr_catagory, tr_mobile, tr_gender, tr_bio, tr_address, tr_experience, tr_charg;
+    ImageView tr_image;
+    CardView edit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        CardView backPress = findViewById(R.id.back);
-        backPress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        initializeViews();
+        setListeners();
+        fetchProfileData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh data whenever the activity is resumed
+        fetchProfileData();
+    }
+
+    private void initializeViews() {
         tr_name = findViewById(R.id.trainer_name);
         tr_email = findViewById(R.id.email);
         tr_address = findViewById(R.id.address);
@@ -42,11 +49,25 @@ CardView edit ;
         tr_image = findViewById(R.id.trainer_img);
         tr_experience = findViewById(R.id.experience);
         tr_charg = findViewById(R.id.charge);
+        edit = findViewById(R.id.edit);
+    }
 
+    private void setListeners() {
+        CardView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        edit.setOnClickListener(view -> redirectActivity(Profile.this, UpdateProfile.class));
+    }
+
+    private void fetchProfileData() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-              FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("trainers").document(userId).get().addOnSuccessListener(documentSnapshot -> {
                 if (documentSnapshot.exists()) {
                     String trname = documentSnapshot.getString("name");
@@ -82,9 +103,8 @@ CardView edit ;
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
-         edit = findViewById(R.id.edit);
-        edit.setOnClickListener(view -> redirectActivity(Profile.this, UpdateProfile.class));
     }
+
     public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
