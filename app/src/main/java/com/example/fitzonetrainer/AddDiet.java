@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,12 +37,8 @@ public class AddDiet extends AppCompatActivity {
     CardView diet_camera;
     ImageView diet_image;
     Button diet_add;
-    // Declare Firestore instance
-
     ProgressDialog progressDialog; // Progress dialog for showing upload progress
     private FirebaseFirestore db;
-    // Uri to store the selected image URI
-    // Declare Firebase Storage reference
     private StorageReference storageRef;
     private Uri selectedImageUri;
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -59,13 +55,9 @@ public class AddDiet extends AppCompatActivity {
         diet_image = findViewById(R.id.diet_image);
         diet_add = findViewById(R.id.diet_add);
 
-        // Initialize Firestore
         db = FirebaseFirestore.getInstance();
-        // Initialize Firebase Storage
         storageRef = FirebaseStorage.getInstance().getReference();
-        // Initialize ProgressDialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setCancelable(false);
 
@@ -80,21 +72,18 @@ public class AddDiet extends AppCompatActivity {
         diet_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the user input values
                 String name = diet_name.getText().toString();
                 String description = diet_description.getText().toString();
 
-                // Check if name, description, and image URI are not empty
                 if (!name.isEmpty() && !description.isEmpty() && selectedImageUri != null) {
-                    // Upload image to Firebase Storage
+                    // Show progress dialog before starting the upload
+                    showProgressDialog("Uploading...");
                     uploadImageToStorage(name, description);
                 } else {
-                    // Handle empty fields or no selected image
-                    // You can show a toast message or provide some feedback to the user
+                    Toast.makeText(AddDiet.this, "Please fill all the fields and select an image", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
         ImageView backPress = findViewById(R.id.back_press);
         backPress.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +94,6 @@ public class AddDiet extends AppCompatActivity {
         });
     }
 
-    // Method to handle image selection result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -115,34 +103,34 @@ public class AddDiet extends AppCompatActivity {
             diet_image.setImageURI(selectedImageUri);
         }
     }
-    // Method to upload image to Firebase Storage
-    // Method to upload image to Firebase Storage
-    private void uploadImageToStorage(final String name, final String description) {
-        // Show ProgressDialog
+
+    private void showProgressDialog(String message) {
+        progressDialog.setMessage(message);
         progressDialog.show();
+    }
 
-        // Create a reference to "diet_images" folder and a unique filename
-        StorageReference imageRef = storageRef.child("diet_images/" + UUID.randomUUID().toString());
+    private void uploadImageToStorage(final String name, final String description) {
+        final StorageReference imageRef = storageRef.child("diet_images/" + UUID.randomUUID().toString());
 
-        // Upload file to Firebase Storage
         imageRef.putFile(selectedImageUri)
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                        // Calculate upload progress
+                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        // Update progress dialog message
+                        progressDialog.setMessage("Uploading... " + (int) progress + "%");
+                    }
+                })
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get the download URL of the uploaded image
                         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                // Save the download URL to Firestore
                                 String image = uri.toString();
-
-                                // Create a new diet object with name, description, and image URL
                                 DietList dietList = new DietList(name, description, image);
-
-                                // Add the diet to Firestore
-                                addDietToFirestore(name,dietList);
-
-                                // Hide ProgressDialog
+                                addDietToFirestore(name, dietList);
                                 progressDialog.dismiss();
                             }
                         });
@@ -151,44 +139,27 @@ public class AddDiet extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Hide ProgressDialog
                         progressDialog.dismiss();
-
-                        // Handle failure
-                        // You can show an error message or handle the failure as per your requirement
-                    }
-                })
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Calculate progress percentage
-                        double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-
-                        // Update progress dialog
-                        progressDialog.setProgress((int) progress);
+                        Toast.makeText(AddDiet.this, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    // Method to add diet to Firestore
-    // Method to add diet to Firestore
     private void addDietToFirestore(String name, DietList diet) {
         db.collection("diets")
-                .document(name)  // Set the document ID to the diet name
+                .document(name)
                 .set(diet)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        // Handle success
-                        // You can show a success message or navigate back to the previous screen
-                        onBackPressed(); // Example: Navigate back to the previous screen
+                        Toast.makeText(AddDiet.this, "Diet added successfully", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Handle failure
-                        // You can show an error message or handle the failure as per your requirement
+                        Toast.makeText(AddDiet.this, "Firestore error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

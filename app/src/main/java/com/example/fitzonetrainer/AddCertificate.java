@@ -2,9 +2,9 @@ package com.example.fitzonetrainer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,12 +25,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.security.cert.Certificate;
 import java.util.UUID;
 
 public class AddCertificate extends AppCompatActivity {
     EditText achi_name, achi_description;
-    CardView achi_camera;
     ImageView achi_image;
     Button achi_add;
 
@@ -47,18 +45,13 @@ public class AddCertificate extends AppCompatActivity {
 
         achi_name = findViewById(R.id.achi_name);
         achi_description = findViewById(R.id.achi_description);
-        achi_camera = findViewById(R.id.achi_camera);
-        achi_image  = findViewById(R.id.achi_image);
+        achi_image = findViewById(R.id.achi_image);
         achi_add = findViewById(R.id.achi_btn);
 
         db = FirebaseFirestore.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference();
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setCancelable(false);
 
-        achi_camera.setOnClickListener(new View.OnClickListener() {
+        achi_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent iuser = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -79,14 +72,6 @@ public class AddCertificate extends AppCompatActivity {
                 }
             }
         });
-
-        ImageView backPress = findViewById(R.id.back_press);
-        backPress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
     }
 
     @Override
@@ -100,6 +85,11 @@ public class AddCertificate extends AppCompatActivity {
     }
 
     private void uploadImageToStorage(final String name, final String description) {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
         progressDialog.show();
 
         StorageReference imageRef = storageRef.child("certificate_images/" + UUID.randomUUID().toString());
@@ -108,6 +98,7 @@ public class AddCertificate extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
                         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
@@ -118,7 +109,6 @@ public class AddCertificate extends AppCompatActivity {
                                     CertificateList certificateList = new CertificateList(name, description, image);
                                     addCertificateToFirestore(userId, certificateList);
                                 } else {
-                                    progressDialog.dismiss();
                                     Toast.makeText(AddCertificate.this, "User not logged in", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -150,7 +140,6 @@ public class AddCertificate extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
                         Toast.makeText(AddCertificate.this, "Certificate added successfully", Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
@@ -158,7 +147,6 @@ public class AddCertificate extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
                         Toast.makeText(AddCertificate.this, "Failed to add certificate: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

@@ -1,10 +1,13 @@
 package com.example.fitzonetrainer;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,13 +20,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Profile extends AppCompatActivity {
-AppCompatTextView tr_name ,tr_email ,tr_catagory , tr_mobile,tr_gender,tr_bio,tr_address,tr_experience,tr_charg;
-ImageView tr_image ;
-CardView edit ;
+    AppCompatTextView tr_name, tr_email, tr_catagory, tr_mobile, tr_gender, tr_bio, tr_address, tr_experience, tr_charg;
+    ImageView tr_image;
+    CardView edit;
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Profile...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
         CardView backPress = findViewById(R.id.back);
         backPress.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +56,9 @@ CardView edit ;
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-              FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("trainers").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+                progressDialog.dismiss(); // Dismiss the loading dialog
                 if (documentSnapshot.exists()) {
                     String trname = documentSnapshot.getString("name");
                     String trexperience = documentSnapshot.getString("experience");
@@ -77,14 +88,42 @@ CardView edit ;
                     }
                 }
             }).addOnFailureListener(e -> {
+                progressDialog.dismiss(); // Dismiss the loading dialog on failure
                 Toast.makeText(Profile.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
         } else {
+            progressDialog.dismiss(); // Dismiss the loading dialog if user is not logged in
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
-         edit = findViewById(R.id.edit);
-        edit.setOnClickListener(view -> redirectActivity(Profile.this, UpdateProfile.class));
+
+        edit = findViewById(R.id.edit);
+        edit.setOnClickListener(view -> {
+            progressDialog.setMessage("Opening Edit Profile...");
+            progressDialog.show();
+            // Delay to simulate loading
+            new android.os.Handler().postDelayed(
+                    () -> {
+                        progressDialog.dismiss();
+                        // Show alert dialog for editing profile here
+                        // For example:
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Profile.this);
+                        alertDialogBuilder.setTitle("Edit Profile");
+                        alertDialogBuilder.setMessage("Do you want to edit your profile?");
+                        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
+                            // Open EditProfile activity
+                            redirectActivity(Profile.this, UpdateProfile.class);
+                        });
+                        alertDialogBuilder.setNegativeButton("No", (dialogInterface, i) -> {
+                            // Do nothing or dismiss dialog
+                            dialogInterface.dismiss();
+                        });
+                        alertDialogBuilder.create().show();
+                    },
+                    2000 // Delay in milliseconds (2 seconds)
+            );
+        });
     }
+
     public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -41,7 +41,6 @@ public class CreateWorkoutPlan extends AppCompatActivity {
     private Uri selectedImageUri;
     private static final int PICK_IMAGE_REQUEST = 1;
 
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +86,12 @@ public class CreateWorkoutPlan extends AppCompatActivity {
 
                 // Check if the plan name is not empty
                 if (!planName.isEmpty()) {
+                    // Show the progress dialog
+                    progressDialog = new ProgressDialog(CreateWorkoutPlan.this);
+                    progressDialog.setMessage("Saving workout plan...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
                     // Save the data to Firestore
                     saveDataToFirestore(planName, planGoal);
                 } else {
@@ -112,16 +117,15 @@ public class CreateWorkoutPlan extends AppCompatActivity {
     private void saveDataToFirestore(String planName, String planGoal) {
         // Check if an image is selected
         if (selectedImageUri != null) {
-            // Show progress dialog
-            progressDialog = new ProgressDialog(CreateWorkoutPlan.this);
-            progressDialog.setMessage("Uploading image...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
             // Get reference to Firebase Storage and set the path for the image
             StorageReference imageRef = storageRef.child("workout_plan_images/" + UUID.randomUUID().toString());
 
             // Upload the image to Firebase Storage
+            progressDialog = new ProgressDialog(CreateWorkoutPlan.this);
+            progressDialog.setMessage("Uploading image...");
+            progressDialog.setCancelable(false);
+            progressDialog.show(); // Show progress dialog before starting the upload
+
             imageRef.putFile(selectedImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -150,7 +154,11 @@ public class CreateWorkoutPlan extends AppCompatActivity {
             saveDataToFirestore(planName, planGoal, null);
         }
     }
+
     private void saveDataToFirestore(String planName, String planGoal, String imageUrl) {
+        // Show the status of saving data to Firestore
+        progressDialog.setMessage("Saving data to Firestore...");
+
         // Create a new document in the "workout_plans" collection with the provided data
         Map<String, Object> workoutPlan = new HashMap<>();
         workoutPlan.put("name", planName);
@@ -158,9 +166,9 @@ public class CreateWorkoutPlan extends AppCompatActivity {
         if (imageUrl != null) {
             workoutPlan.put("image", imageUrl); // Add the image URL to the document if it exists
         }
-        String name = plan_name.getText().toString();
+
         // Add the workout plan data to Firestore
-        db.collection("workout_plans").document(name)
+        db.collection("workout_plans").document(planName)
                 .set(workoutPlan)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -181,5 +189,4 @@ public class CreateWorkoutPlan extends AppCompatActivity {
                     }
                 });
     }
-
 }

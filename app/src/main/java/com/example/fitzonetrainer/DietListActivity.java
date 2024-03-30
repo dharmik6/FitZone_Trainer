@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,13 +24,20 @@ public class DietListActivity extends AppCompatActivity {
     private DietAdapter adapter;
     private List<DietList> dietLists;
     private TextView dataNotFoundText;
-    LinearLayout add_diet;
+    private LinearLayout add_diet;
+    private ProgressDialog progressDialog; // Progress dialog for showing loading indicator
+
+    boolean isFirstLoad = true; // Flag to track the first load
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_list);
+
+        // Initialize progress dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading..."); // Set loading message
 
         ImageView backPress = findViewById(R.id.back);
         backPress.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +62,8 @@ public class DietListActivity extends AppCompatActivity {
         add_diet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             Intent int1 = new Intent(DietListActivity.this , AddDiet.class);
-             startActivity(int1);
+                Intent int1 = new Intent(DietListActivity.this, AddDiet.class);
+                startActivity(int1);
             }
         });
     }
@@ -63,15 +71,24 @@ public class DietListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Load diet data every time the activity resumes
         loadDietData();
     }
 
     private void loadDietData() {
+        // Show progress dialog
+        progressDialog.show();
+
         dietLists.clear(); // Clear the previous list
+        adapter.notifyDataSetChanged(); // Notify adapter to reflect the changes
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("diets")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
+                    // Hide progress dialog when data is fetched
+                    progressDialog.dismiss();
+
                     for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         String name = documentSnapshot.getString("name");
                         String description = documentSnapshot.getString("description");
@@ -80,8 +97,11 @@ public class DietListActivity extends AppCompatActivity {
                         dietLists.add(diet);
                     }
                     adapter.notifyDataSetChanged(); // Notify adapter about data changes
+                    updateDataNotFoundVisibility(); // Update visibility of "no data" message
                 })
                 .addOnFailureListener(e -> {
+                    // Hide progress dialog on failure
+                    progressDialog.dismiss();
                     // Handle failure
                 });
     }

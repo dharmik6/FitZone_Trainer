@@ -205,4 +205,13 @@ public class AddExercises extends AppCompatActivity {
                     }
                 });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check if there's a selected image URI, if yes, set it to the image view
+        if (selectedImageUri != null) {
+            exe_image.setImageURI(selectedImageUri);
+        }
+    }
 }

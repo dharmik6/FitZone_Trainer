@@ -70,17 +70,46 @@ public class WorkoutPlansList extends AppCompatActivity {
         adapter = new WorkoutPlansAdapter(this, exercisesItemLists); // Use correct adapter
         plan_recyc.setAdapter(adapter);
 
-        // Show ProgressDialog
+        add_exercises = findViewById(R.id.add_exercises);
+        add_exercises.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(WorkoutPlansList.this, CreateWorkoutPlan.class));
+            }
+        });
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        // Initialize ProgressDialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable(false);
+
+        // Load workout plans data
+        loadWorkoutPlansData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Load workout plans data every time the activity resumes
+        loadWorkoutPlansData();
+    }
+
+    private void loadWorkoutPlansData() {
+        // Show progress dialog
         progressDialog.show();
 
-        // Query Firestore for data
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         listenerRegistration = db.collection("workout_plans").addSnapshotListener((queryDocumentSnapshots, e) -> {
             if (e != null) {
                 // Handle error
+                progressDialog.dismiss();
                 return;
             }
 
@@ -99,24 +128,7 @@ public class WorkoutPlansList extends AppCompatActivity {
             updateDataNotFoundVisibility();
 
             // Dismiss ProgressDialog when data is loaded
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
-        });
-
-        add_exercises = findViewById(R.id.add_exercises);
-        add_exercises.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WorkoutPlansList.this, CreateWorkoutPlan.class));
-            }
-        });
-        ImageView backPress = findViewById(R.id.back);
-        backPress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
+            progressDialog.dismiss();
         });
     }
 
