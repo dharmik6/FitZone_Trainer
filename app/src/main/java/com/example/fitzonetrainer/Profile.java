@@ -1,11 +1,9 @@
 package com.example.fitzonetrainer;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.cardview.widget.CardView;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,13 +33,6 @@ public class Profile extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        CardView backPress = findViewById(R.id.back);
-        backPress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
         initializeViews();
         setListeners();
         fetchProfileData();
@@ -76,7 +67,21 @@ public class Profile extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        edit.setOnClickListener(view -> redirectActivity(Profile.this, UpdateProfile.class));
+        edit.setOnClickListener(view -> {
+            // Show progress dialog when clicking the edit button
+            progressDialog.setMessage("Opening Edit Profile...");
+            progressDialog.show();
+
+            // Delay to simulate loading
+            new android.os.Handler().postDelayed(
+                    () -> {
+                        progressDialog.dismiss();
+                        // Open the UpdateProfile activity
+                        redirectActivity(Profile.this, UpdateProfile.class);
+                    },
+                    2000 // Delay in milliseconds (2 seconds)
+            );
+        });
     }
 
     private void fetchProfileData() {
@@ -122,33 +127,6 @@ public class Profile extends AppCompatActivity {
             progressDialog.dismiss(); // Dismiss the loading dialog if user is not logged in
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
-
-        edit = findViewById(R.id.edit);
-        edit.setOnClickListener(view -> {
-            progressDialog.setMessage("Opening Edit Profile...");
-            progressDialog.show();
-            // Delay to simulate loading
-            new android.os.Handler().postDelayed(
-                    () -> {
-                        progressDialog.dismiss();
-                        // Show alert dialog for editing profile here
-                        // For example:
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Profile.this);
-                        alertDialogBuilder.setTitle("Edit Profile");
-                        alertDialogBuilder.setMessage("Do you want to edit your profile?");
-                        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> {
-                            // Open EditProfile activity
-                            redirectActivity(Profile.this, UpdateProfile.class);
-                        });
-                        alertDialogBuilder.setNegativeButton("No", (dialogInterface, i) -> {
-                            // Do nothing or dismiss dialog
-                            dialogInterface.dismiss();
-                        });
-                        alertDialogBuilder.create().show();
-                    },
-                    2000 // Delay in milliseconds (2 seconds)
-            );
-        });
     }
 
     public static void redirectActivity(Activity activity, Class secondActivity) {

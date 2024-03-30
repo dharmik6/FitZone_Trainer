@@ -1,8 +1,7 @@
 package com.example.fitzonetrainer;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
+import androidx.appcompat.app.AlertDialog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -10,18 +9,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
 
-    RelativeLayout account  , logout ;
+    RelativeLayout account, logout;
 
-    boolean isDarkModeEnabled = false;
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,19 +36,9 @@ public class Settings extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences pref = getSharedPreferences("login", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putBoolean("flag", false);
-                editor.apply();
-
-                // After logging out, navigate to the LoginActivity
-                Intent intent = new Intent(Settings.this, Login.class);
-                startActivity(intent);
-               finish(); // Close the current activity
+                showLogoutConfirmationDialog();
             }
         });
-
-      
 
         account.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +49,38 @@ public class Settings extends AppCompatActivity {
 
     }
 
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Logout", (dialog, which) -> {
+            logoutUser();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            // Dismiss the dialog
+            dialog.dismiss();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void logoutUser() {
+        SharedPreferences pref = getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("flag", false);
+        editor.apply();
+
+        // After logging out, navigate to the LoginActivity
+        Intent intent = new Intent(Settings.this, Login.class);
+        startActivity(intent);
+        finish(); // Close the current activity
+    }
 
     private void showToast(String message) {
         // Display a toast message
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
     public static void redirectActivity(Activity activity, Class secondActivity) {
         Intent intent = new Intent(activity, secondActivity);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

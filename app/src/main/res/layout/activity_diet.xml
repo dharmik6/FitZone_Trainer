@@ -118,7 +118,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="This certificate is awarded in recognition of [his/her] outstanding academic performance and commitment to excellence. [Name] has exhibited a keen interest in learning and has consistently contributed positively to the learning environment."
                     android:layout_marginTop="10dp"
                     android:layout_below="@id/text2"
                     tools:ignore="ContentDescription,HardcodedText" />

@@ -1,15 +1,9 @@
 package com.example.fitzonetrainer;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatEditText;
-import androidx.cardview.widget.CardView;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.github.drjacky.imagepicker.constant.ImageProvider;
@@ -36,6 +34,7 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
 public class UpdateProfile extends AppCompatActivity {
+
     private StorageReference storageRef;
     private Uri selectedImageUri;
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -152,6 +151,7 @@ public class UpdateProfile extends AppCompatActivity {
 
             }
         });
+
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,14 +171,16 @@ public class UpdateProfile extends AppCompatActivity {
         });
 
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        UpdateProfile.super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             selectedImageUri = data.getData();
             up_image.setImageURI(selectedImageUri);
         }
     }
+
     private void uploadImageAndSaveData(final Map<String, Object> trainerData, final String trainerId) {
         // Get reference to Firebase Storage and set the path for the image
         StorageReference imageRef = storageRef.child("trainer_images/" + trainerId);
@@ -194,7 +196,7 @@ public class UpdateProfile extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 // Image download URL obtained, save data to Firestore
                                 String imageUrl = uri.toString();
-                                saveDataToFirestore(trainerData, trainerId,imageUrl);
+                                saveDataToFirestore(trainerData, trainerId, imageUrl);
                             }
                         });
                     }
@@ -208,6 +210,7 @@ public class UpdateProfile extends AppCompatActivity {
                     }
                 });
     }
+
     private void saveDataToFirestore(Map<String, Object> trainerData, String trainerId, String imageUrl) {
         if (imageUrl != null) {
             trainerData.put("image", imageUrl); // Add the image URL to the document if it exists
@@ -233,4 +236,12 @@ public class UpdateProfile extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check if progressDialog is not null and still showing, then dismiss it
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
 }
