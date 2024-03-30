@@ -42,6 +42,19 @@ public class Profile extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        initializeViews();
+        setListeners();
+        fetchProfileData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh data whenever the activity is resumed
+        fetchProfileData();
+    }
+
+    private void initializeViews() {
         tr_name = findViewById(R.id.trainer_name);
         tr_email = findViewById(R.id.email);
         tr_address = findViewById(R.id.address);
@@ -52,7 +65,21 @@ public class Profile extends AppCompatActivity {
         tr_image = findViewById(R.id.trainer_img);
         tr_experience = findViewById(R.id.experience);
         tr_charg = findViewById(R.id.charge);
+        edit = findViewById(R.id.edit);
+    }
 
+    private void setListeners() {
+        CardView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        edit.setOnClickListener(view -> redirectActivity(Profile.this, UpdateProfile.class));
+    }
+
+    private void fetchProfileData() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();

@@ -205,7 +205,7 @@ public class ProfileInformation extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     Toast.makeText(ProfileInformation.this, "Submit successful", Toast.LENGTH_SHORT).show();
                                     // Redirect to the next activity
-                                    redirectActivity(ProfileInformation.this, Login.class, uid);
+                                    redirectActivity(ProfileInformation.this, AadhaarCard.class, uid);
                                 })
                                 .addOnFailureListener(e -> {
                                     // Dismiss progress dialog

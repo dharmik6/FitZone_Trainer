@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,12 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class PendingBookingDetail extends AppCompatActivity {
     AppCompatTextView booking_id, member_id, booking_date, start_time, end_time, booking_status;
     FirebaseFirestore db;
-    Button accept , cancel ;
+    Button accept, cancel;
+    ProgressDialog progressDialog; // Declare ProgressDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +61,12 @@ public class PendingBookingDetail extends AppCompatActivity {
         // Initialize Firestore
         db = FirebaseFirestore.getInstance();
 
+        // Initialize ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Processing..."); // Set the message for the dialog
+        progressDialog.setCancelable(false); // Set whether the dialog is cancelable
+
         // Fetch additional data from Firestore
-        // Fetch additional data from Firestore
-        Log.d("id" , id);
         db.collection("bookings").document(id).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -74,10 +78,6 @@ public class PendingBookingDetail extends AppCompatActivity {
                                 String bookingDate = document.getString("bookingDate");
                                 String startTime = document.getString("startTime");
                                 String endTime = document.getString("endTime");
-
-                                Log.d("FirestoreData", "Booking Date: " + bookingDate);
-                                Log.d("FirestoreData", "Start Time: " + startTime);
-                                Log.d("FirestoreData", "End Time: " + endTime);
 
                                 booking_date.setText(bookingDate != null ? bookingDate : "No date");
                                 start_time.setText(startTime != null ? startTime : "No date");
@@ -97,6 +97,7 @@ public class PendingBookingDetail extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showProgressDialog(); // Show ProgressDialog before Firestore operation
                 // Update paymentStatus to "confirmed" in Firestore
                 db.collection("bookings").document(id)
                         .update("paymentStatus", "confirmed")
@@ -104,6 +105,7 @@ public class PendingBookingDetail extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 // Update successful
+                                dismissProgressDialog(); // Dismiss the ProgressDialog after Firestore operation is completed
                                 Toast.makeText(PendingBookingDetail.this, "Booking confirmed", Toast.LENGTH_SHORT).show();
                                 // Optionally, you may also finish this activity or perform any other action after the update
                                 finish();
@@ -114,6 +116,7 @@ public class PendingBookingDetail extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 // Handle errors while updating
                                 Log.e("FirestoreUpdate", "Error updating document", e);
+                                dismissProgressDialog(); // Dismiss the ProgressDialog if there is a failure
                                 Toast.makeText(PendingBookingDetail.this, "Failed to update payment status", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -123,13 +126,15 @@ public class PendingBookingDetail extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Update paymentStatus to "confirmed" in Firestore
+                showProgressDialog(); // Show ProgressDialog before Firestore operation
+                // Update paymentStatus to "canceled" in Firestore
                 db.collection("bookings").document(id)
                         .update("paymentStatus", "canceled")
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 // Update successful
+                                dismissProgressDialog(); // Dismiss the ProgressDialog after Firestore operation is completed
                                 Toast.makeText(PendingBookingDetail.this, "Booking canceled", Toast.LENGTH_SHORT).show();
                                 // Optionally, you may also finish this activity or perform any other action after the update
                                 finish();
@@ -140,11 +145,20 @@ public class PendingBookingDetail extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 // Handle errors while updating
                                 Log.e("FirestoreUpdate", "Error updating document", e);
+                                dismissProgressDialog(); // Dismiss the ProgressDialog if there is a failure
                                 Toast.makeText(PendingBookingDetail.this, "Failed to update payment status", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
 
+    }
+
+    private void showProgressDialog() {
+        progressDialog.show(); // Show the ProgressDialog
+    }
+
+    private void dismissProgressDialog() {
+        progressDialog.dismiss(); // Dismiss the ProgressDialog
     }
 }

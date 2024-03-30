@@ -1,5 +1,7 @@
 package com.example.fitzonetrainer;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -11,13 +13,18 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout ;
@@ -25,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     TextView text_title;
     ImageView settings ;
 
+    ImageView navImg;
+    TextView navName,navEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +45,54 @@ public class MainActivity extends AppCompatActivity {
         ImageView menu = findViewById(R.id.show_menu);
         settings = findViewById(R.id.settings);
 
+        View headerView = navigationView.getHeaderView(0);
+
+        navImg = headerView.findViewById(R.id.nav_imag);
+        navName = headerView.findViewById(R.id.nav_name);
+        navEmail = headerView.findViewById(R.id.nav_email);
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            // Now you can use the userId as needed
+            Log.d(TAG, "Current user ID: " + userId);
+        } else {
+            // Handle the case where the user is not signed in
+            Log.d(TAG, "No user is currently signed in");
+        }
+
+
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            Log.d(TAG, "onCreate: userId "+userId);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("trainers").document(userId).get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    String aname = documentSnapshot.getString("name");
+                    String aemail = documentSnapshot.getString("email");
+                    String aimg = documentSnapshot.getString("image");
+
+                    Log.d(TAG, "onCreate: aname "+aname+"aemail"+aemail);
+                    navName.setText(aname != null ? aname : "No name");
+                    navEmail.setText(aemail != null ? aemail : "No name");
+                    if (aimg != null) {
+                        Glide.with(MainActivity.this)
+                                .load(aimg)
+                                .into(navImg);
+                    }
+                }
+            }).addOnFailureListener(e -> {
+                Toast.makeText(MainActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+        }
+
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 redirectActivity(MainActivity.this , Settings.class);
-                finish();
             }
         });
 
@@ -103,15 +154,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-        {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            // If drawer is not open
+            FragmentManager fm = getSupportFragmentManager();
+            if (fm.getBackStackEntryCount() > 0) {
+                fm.popBackStack();
+            } else {
+                // If there are no fragments in the back stack, replace with FragmentAppointmentsHome
+                loadFragment(new FragmentAppointmentsHome(), false);
+            }
         }
-        else{
-            super.onBackPressed();
-        }
-
     }
+
 
     public void loadFragment(Fragment fragment, boolean flag)
     {

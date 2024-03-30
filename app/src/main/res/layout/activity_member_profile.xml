@@ -134,6 +134,7 @@
                         tools:ignore="Orientation">
 
                         <ImageView
+                            android:id="@+id/btn_call"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_chat"
@@ -429,7 +430,7 @@
                                         <androidx.appcompat.widget.AppCompatTextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="66.00kg"
+                                            android:text="100.00kg"
                                             android:fontFamily="@font/nunito_bold"
                                             android:textColor="@color/black"
                                             android:textSize="14sp"
@@ -464,7 +465,7 @@
                                         <androidx.appcompat.widget.AppCompatTextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="66.00kg"
+                                            android:text="50.00kg"
                                             android:fontFamily="@font/nunito_bold"
                                             android:textColor="@color/black"
                                             android:textSize="14sp"

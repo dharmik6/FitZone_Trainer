@@ -1,14 +1,13 @@
 package com.example.fitzonetrainer;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,6 +21,7 @@ public class PendingAppointments extends AppCompatActivity {
     private PendingBookingAdapter adapter;
     private List<BookingItemList> PendingLists;
     TextView dataNotFoundText;
+    ProgressDialog progressDialog; // Declare ProgressDialog
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,17 @@ public class PendingAppointments extends AppCompatActivity {
 
         // Initialize dataNotFoundText
         dataNotFoundText = findViewById(R.id.data_not_found_text);
+
+        // Initialize ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading..."); // Set the message for the dialog
+        progressDialog.setCancelable(false); // Set whether the dialog is cancelable
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        showProgressDialog(); // Show ProgressDialog when the activity resumes
         loadDietData(); // Load diet data when the activity resumes
     }
 
@@ -79,9 +85,11 @@ public class PendingAppointments extends AppCompatActivity {
                                     PendingLists.add(bookingList);
                                     adapter.notifyDataSetChanged(); // Notify adapter about data changes
                                     updateDataNotFoundVisibility(); // Update visibility after data changes
+                                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                                 })
                                 .addOnFailureListener(e -> {
                                     // Handle failure to fetch user details
+                                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                                 });
                     }
                     // Update visibility in case the list is empty initially
@@ -89,12 +97,18 @@ public class PendingAppointments extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     // Handle failure
+                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                 });
+    }
+
+    private void showProgressDialog() {
+        progressDialog.show(); // Show the ProgressDialog
     }
 
     private void updateDataNotFoundVisibility() {
         if (PendingLists.isEmpty()) { // Check if PendingLists is empty
-            dataNotFoundText.setVisibility(View.VISIBLE); // Show the TextView if the list is empty
+            dataNotFoundText.setVisibility(View.VISIBLE);
+            progressDialog.dismiss();// Show the TextView if the list is empty
         } else {
             dataNotFoundText.setVisibility(View.GONE); // Hide the TextView if the list is not empty
         }

@@ -20,6 +20,7 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FragmentMemberData extends Fragment {
 
     private RecyclerView recyclerView;
@@ -34,7 +35,6 @@ public class FragmentMemberData extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_member_data, container, false);
 
@@ -60,6 +60,7 @@ public class FragmentMemberData extends Fragment {
             }
         });
 
+
         recyclerView = view.findViewById(R.id.data_recyc_members);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -69,7 +70,7 @@ public class FragmentMemberData extends Fragment {
 
         filteredList1 = new ArrayList<>();
         memberList = new ArrayList<>();
-        dataAdapter = new MemberDataAdapter(getContext(), memberList);
+        dataAdapter = new MemberDataAdapter(getContext(),memberList);
         recyclerView.setAdapter(dataAdapter);
 
         // Show ProgressDialog
@@ -80,24 +81,17 @@ public class FragmentMemberData extends Fragment {
 
         // Query Firestore for data
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        listenerRegistration = db.collection("users").addSnapshotListener((queryDocumentSnapshots, e) -> {
-            if (e != null) {
-                // Handle error
-                return;
-            }
-
-            memberList.clear(); // Clear previous data
-
+        db.collection("users").get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                 String name = documentSnapshot.getString("name");
                 String email = documentSnapshot.getString("email");
                 String image = documentSnapshot.getString("image");
-                String uid = documentSnapshot.getString("name");
-
-                MemberList member = new MemberList(name, email, image, uid);
+                String uid = documentSnapshot.getId();
+//                memberList.add(new MemberList(name, email,image));
+                MemberList member = new MemberList(name, email,image,uid);
                 memberList.add(member);
+//                originalMemberDataList.add(member); // Add to both lists
             }
-
             filteredList1.addAll(memberList); // Initialize filteredList with all members
             dataAdapter.notifyDataSetChanged(); // Notify adapter of dataset change
             updateDataNotFoundVisibility();
@@ -106,11 +100,16 @@ public class FragmentMemberData extends Fragment {
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
+        }).addOnFailureListener(e -> {
+            // Handle failures
+
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
         });
 
         return view;
     }
-
     private void filter1(String query) {
         List<MemberList> filteredList1 = new ArrayList<>();
         for (MemberList member : memberList) {

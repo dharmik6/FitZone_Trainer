@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ public class AcceptedAppintments extends AppCompatActivity {
     private AcceptedBookingAdapter adapter;
     private List<BookingItemList> acceptedLists;
     TextView dataNotFoundText;
+    ProgressDialog progressDialog; // Declare ProgressDialog
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,13 +50,16 @@ public class AcceptedAppintments extends AppCompatActivity {
         // Initialize dataNotFoundText
         dataNotFoundText = findViewById(R.id.data_not_found_text);
 
-        // Call the method to update visibility
-        updateDataNotFoundVisibility();
+        // Initialize ProgressDialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading..."); // Set the message for the dialog
+        progressDialog.setCancelable(false); // Set whether the dialog is cancelable
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        showProgressDialog(); // Show ProgressDialog when the activity resumes
         loadDietData(); // Load data when the activity resumes
     }
 
@@ -82,20 +87,28 @@ public class AcceptedAppintments extends AppCompatActivity {
                                     acceptedLists.add(bookingList);
                                     adapter.notifyDataSetChanged(); // Notify adapter about data changes
                                     updateDataNotFoundVisibility(); // Update visibility after data changes
+                                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                                 })
                                 .addOnFailureListener(e -> {
                                     // Handle failure to fetch user details
+                                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                                 });
                     }
                 })
                 .addOnFailureListener(e -> {
                     // Handle failure
+                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                 });
+    }
+
+    private void showProgressDialog() {
+        progressDialog.show(); // Show the ProgressDialog
     }
 
     private void updateDataNotFoundVisibility() {
         if (acceptedLists.isEmpty()) { // Check if acceptedLists is empty
             dataNotFoundText.setVisibility(View.VISIBLE); // Show the TextView if the list is empty
+            progressDialog.dismiss();
         } else {
             dataNotFoundText.setVisibility(View.GONE); // Hide the TextView if the list is not empty
         }

@@ -140,7 +140,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="12a1dsd1sd1d2fsg"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
@@ -173,7 +173,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="Jaymin chavda"
+                                    android:text=" "
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />
@@ -206,7 +206,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="2 hours"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck" />
@@ -239,7 +239,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="8.00 am"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck" />
@@ -272,7 +272,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="10.00 am"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck" />
@@ -306,7 +306,7 @@
                                     android:fontFamily="@font/nunito_regular"
                                     android:padding="10dp"
                                     android:paddingStart="15dp"
-                                    android:text="confirmed"
+                                    android:text=""
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     tools:ignore="HardcodedText,RtlSymmetry,SpUsage,TouchTargetSizeCheck,TextSizeCheck" />

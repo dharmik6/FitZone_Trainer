@@ -140,53 +140,12 @@
 
 
                             <RelativeLayout
-                                android:id="@+id/rl_dark_mode"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/rl_account"
-                                android:layout_marginTop="40dp"
-                                android:orientation="horizontal">
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:src="@drawable/ic_dark_mode"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_alignParentStart="true"
-                                    tools:ignore="ContentDescription" />
-
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/nunito_bold"
-                                    android:text="Dark Mode"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_marginStart="60dp"
-                                    android:gravity="center"
-                                    android:layout_gravity="center"
-                                    android:textSize="20sp"
-                                    tools:ignore="HardcodedText" />
-
-                                <Switch
-                                    android:id="@+id/dark_switch"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="20dp"
-                                    android:layout_marginStart="270dp"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentEnd="true"
-                                    android:thumbTint="@color/your_button_color"
-                                    android:trackTint="@color/text"
-                                    tools:ignore="UseSwitchCompatOrMaterialXml,TouchTargetSizeCheck" />
-                            </RelativeLayout>
-
-                            <RelativeLayout
                                 android:id="@+id/rl_logout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="40dp"
                                 android:layout_marginBottom="20dp"
-                                android:layout_below="@+id/rl_dark_mode"
+                                android:layout_below="@+id/rl_account"
                                 android:orientation="horizontal">
                                 <ImageView
                                     android:layout_width="30dp"
