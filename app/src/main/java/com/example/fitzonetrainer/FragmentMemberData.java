@@ -97,7 +97,7 @@ public class FragmentMemberData extends Fragment {
                 progressDialog.dismiss();
             }
         });
-
+//
         return view;
     }
     private void filter1(String query) {
