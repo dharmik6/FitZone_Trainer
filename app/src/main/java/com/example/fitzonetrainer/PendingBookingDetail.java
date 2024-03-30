@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +30,14 @@ public class PendingBookingDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_booking_detail);
+
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         booking_id = findViewById(R.id.booking_id);
         member_id = findViewById(R.id.member_id);
@@ -90,13 +99,14 @@ public class PendingBookingDetail extends AppCompatActivity {
             public void onClick(View v) {
                 // Update paymentStatus to "confirmed" in Firestore
                 db.collection("bookings").document(id)
-                        .update("paymentStatus", "canceld")
+                        .update("paymentStatus", "confirmed")
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 // Update successful
                                 Toast.makeText(PendingBookingDetail.this, "Booking confirmed", Toast.LENGTH_SHORT).show();
                                 // Optionally, you may also finish this activity or perform any other action after the update
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -122,6 +132,7 @@ public class PendingBookingDetail extends AppCompatActivity {
                                 // Update successful
                                 Toast.makeText(PendingBookingDetail.this, "Booking canceled", Toast.LENGTH_SHORT).show();
                                 // Optionally, you may also finish this activity or perform any other action after the update
+                                finish();
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

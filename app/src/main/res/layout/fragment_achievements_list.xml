@@ -67,11 +67,28 @@
                 android:layout_below="@+id/rl_add_diet"
                 android:layout_marginTop="20dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:orientation="vertical"
                     tools:ignore="UselessLeaf">
+
+                    <TextView
+                        android:id="@+id/data_not_found_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Data not found "
+                        android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:layout_marginTop="500dp"
+                        android:visibility="gone"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"/>
+
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/achi_recyc"
@@ -79,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:scrollbars="vertical"
                         tools:listitem="@layout/achievements_list_item" />
-                </LinearLayout>
+                </RelativeLayout>
 
             </ScrollView>
 

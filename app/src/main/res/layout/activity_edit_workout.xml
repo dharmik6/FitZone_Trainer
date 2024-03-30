@@ -162,13 +162,28 @@
 
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/plan_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/ll_plan_name"
                 tools:ignore="UselessLeaf">
+
+                <TextView
+                    android:id="@+id/data_not_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Data not found "
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:layout_marginTop="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"/>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/wor_plan_recyc"
@@ -178,7 +193,7 @@
                     android:layout_alignParentStart="true"
                     android:scrollbars="vertical"
                     tools:listitem="@layout/exercise_name_delete_list_item" />
-            </LinearLayout>
+            </RelativeLayout>
 
 
             <LinearLayout

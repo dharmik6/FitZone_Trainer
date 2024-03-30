@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -19,12 +22,25 @@ public class DietListActivity extends AppCompatActivity {
     private RecyclerView diet_recyc;
     private DietAdapter adapter;
     private List<DietList> dietLists;
+    private TextView dataNotFoundText;
     LinearLayout add_diet;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diet_list);
+
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        dataNotFoundText = findViewById(R.id.data_not_show);
+        updateDataNotFoundVisibility();
 
         diet_recyc = findViewById(R.id.diet_recyclerView);
         diet_recyc.setHasFixedSize(true);
@@ -68,5 +84,13 @@ public class DietListActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // Handle failure
                 });
+    }
+
+    private void updateDataNotFoundVisibility() {
+        if (dietLists != null && dietLists.isEmpty()) {
+            dataNotFoundText.setVisibility(View.VISIBLE);
+        } else {
+            dataNotFoundText.setVisibility(View.GONE);
+        }
     }
 }

@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.util.ArrayList;
@@ -20,18 +22,21 @@ import java.util.List;
 
 
 public class FragmentMemberData extends Fragment {
+
     private RecyclerView recyclerView;
     private MemberDataAdapter dataAdapter;
     private List<MemberList> memberList;
-    ProgressDialog progressDialog;
-    MaterialSearchBar user_data_searchbar;
-    List<MemberList> filteredList1;
+    private TextView dataNotFoundText;
+    private ProgressDialog progressDialog;
+    private MaterialSearchBar user_data_searchbar;
+    private List<MemberList> filteredList1;
+    private ListenerRegistration listenerRegistration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_member_data, container, false) ;
+        View view = inflater.inflate(R.layout.fragment_member_data, container, false);
 
         // Initialize search bar
         user_data_searchbar = view.findViewById(R.id.user_data_searchbar);
@@ -60,6 +65,9 @@ public class FragmentMemberData extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        dataNotFoundText = view.findViewById(R.id.data_not_show);
+        updateDataNotFoundVisibility();
+
         filteredList1 = new ArrayList<>();
         memberList = new ArrayList<>();
         dataAdapter = new MemberDataAdapter(getContext(),memberList);
@@ -85,7 +93,9 @@ public class FragmentMemberData extends Fragment {
 //                originalMemberDataList.add(member); // Add to both lists
             }
             filteredList1.addAll(memberList); // Initialize filteredList with all members
-            dataAdapter.notifyDataSetChanged();
+            dataAdapter.notifyDataSetChanged(); // Notify adapter of dataset change
+            updateDataNotFoundVisibility();
+
             // Dismiss ProgressDialog when data is loaded
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
@@ -97,7 +107,7 @@ public class FragmentMemberData extends Fragment {
                 progressDialog.dismiss();
             }
         });
-//
+
         return view;
     }
     private void filter1(String query) {
@@ -108,5 +118,22 @@ public class FragmentMemberData extends Fragment {
             }
         }
         dataAdapter.filterList1(filteredList1);
+    }
+
+    // Method to update visibility of "Data not found" message based on data availability
+    private void updateDataNotFoundVisibility() {
+        if (memberList != null && memberList.isEmpty()) {
+            dataNotFoundText.setVisibility(View.VISIBLE);
+        } else {
+            dataNotFoundText.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+        }
     }
 }

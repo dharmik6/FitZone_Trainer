@@ -106,12 +106,27 @@
                     tools:ignore="ObsoleteLayoutParam">
 
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         tools:ignore="UselessLeaf,UselessParent">
+
+                        <TextView
+                            android:id="@+id/data_not_show"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Data not found "
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:visibility="gone"
+                            android:layout_marginTop="100dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentEnd="true"/>
+
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/edit_exe_tr"
@@ -119,7 +134,7 @@
                             android:layout_height="wrap_content"
                             android:scrollbars="vertical"
                             tools:listitem="@layout/exercise_name_list_item" />
-                    </LinearLayout>
+                    </RelativeLayout>
 
 
                 </RelativeLayout>

@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,6 +24,14 @@ CardView edit ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        CardView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         tr_name = findViewById(R.id.trainer_name);
         tr_email = findViewById(R.id.email);
         tr_address = findViewById(R.id.address);

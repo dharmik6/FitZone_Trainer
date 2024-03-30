@@ -1,10 +1,12 @@
 package com.example.fitzonetrainer;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +30,17 @@ public class EditWorkoutList extends AppCompatActivity {
     private EditWorkoutListAdapter adapter;
     private List<EditWorkoutItemList> exercisesItemLists;
     private ProgressDialog progressDialog;
+    TextView dataNotFoundText;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit_workout_list);
+
+        // Initialize dataNotFoundText
+        dataNotFoundText = findViewById(R.id.data_not_found_text);
 
         edit_exe_tr = findViewById(R.id.edit_exe_tr);
         wor_exe_searchbar = findViewById(R.id.wor_exe_searchbar);
@@ -80,7 +88,7 @@ public class EditWorkoutList extends AppCompatActivity {
                 String body = documentSnapshot.getString("body");
                 String image = documentSnapshot.getString("imageUrl");
                 String id = documentSnapshot.getId();
-                EditWorkoutItemList exe = new EditWorkoutItemList(name, body, image, id,wid);
+                EditWorkoutItemList exe = new EditWorkoutItemList(name, body, image, id, wid);
                 exercisesItemLists.add(exe);
             }
 
@@ -107,6 +115,7 @@ public class EditWorkoutList extends AppCompatActivity {
 
                     // Update the adapter with the filtered exercises
                     adapter.filterList(filteredExercises);
+                    updateDataNotFoundVisibility();
                     // Dismiss ProgressDialog when data is loaded
                     if (progressDialog != null && progressDialog.isShowing()) {
                         progressDialog.dismiss();
@@ -121,6 +130,7 @@ public class EditWorkoutList extends AppCompatActivity {
                 // If wid is null, add all exercises to the filtered list
                 filteredExercises.addAll(exercisesItemLists);
                 adapter.filterList(filteredExercises);
+                updateDataNotFoundVisibility();
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
                 }
@@ -150,5 +160,13 @@ public class EditWorkoutList extends AppCompatActivity {
             }
         }
         adapter.filterList(filteredList);
+    }
+
+    private void updateDataNotFoundVisibility() {
+        if (exercisesItemLists != null && exercisesItemLists.isEmpty()) {
+            dataNotFoundText.setVisibility(View.VISIBLE);
+        } else {
+            dataNotFoundText.setVisibility(View.GONE);
+        }
     }
 }

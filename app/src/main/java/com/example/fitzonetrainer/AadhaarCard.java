@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 public class AadhaarCard extends AppCompatActivity {
     AppCompatButton btnFront , btnBack ;
@@ -16,6 +18,13 @@ public class AadhaarCard extends AppCompatActivity {
         btnFront = findViewById(R.id.btn_front_side);
         btnBack = findViewById(R.id.btn_back_side);
 
+        ImageView backPress = findViewById(R.id.back);
+        backPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 }
