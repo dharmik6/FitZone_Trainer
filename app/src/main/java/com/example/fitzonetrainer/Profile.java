@@ -67,21 +67,9 @@ public class Profile extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        edit.setOnClickListener(view -> {
-            // Show progress dialog when clicking the edit button
-            progressDialog.setMessage("Opening Edit Profile...");
-            progressDialog.show();
 
-            // Delay to simulate loading
-            new android.os.Handler().postDelayed(
-                    () -> {
-                        progressDialog.dismiss();
-                        // Open the UpdateProfile activity
-                        redirectActivity(Profile.this, UpdateProfile.class);
-                    },
-                    2000 // Delay in milliseconds (2 seconds)
-            );
-        });
+
+
     }
 
     private void fetchProfileData() {
@@ -113,6 +101,28 @@ public class Profile extends AppCompatActivity {
                     tr_bio.setText(trbio != null ? trbio : "No number");
                     tr_gender.setText(trgender != null ? trgender : "No goal");
 
+                    Intent intent = new Intent(Profile.this, UpdateProfile.class);
+
+                    // Put profile data as extras
+                    intent.putExtra("name", trname);
+                    intent.putExtra("experience", trexperience);
+                    intent.putExtra("address", traddress);
+                    intent.putExtra("charge", trcharg);
+                    intent.putExtra("mobile", trmobile);
+                    intent.putExtra("catagory", trcatagory);
+                    intent.putExtra("bio", trbio);
+                    intent.putExtra("gender", trgender);
+                    intent.putExtra("email", tremail);
+                    intent.putExtra("image", trimage);
+
+                    edit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(intent);
+                        }
+                    });
+                    // Start UpdateProfile activity
+
                     if (trimage != null) {
                         Glide.with(Profile.this)
                                 .load(trimage)
@@ -129,9 +139,5 @@ public class Profile extends AppCompatActivity {
         }
     }
 
-    public static void redirectActivity(Activity activity, Class secondActivity) {
-        Intent intent = new Intent(activity, secondActivity);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        activity.startActivity(intent);
-    }
+
 }
