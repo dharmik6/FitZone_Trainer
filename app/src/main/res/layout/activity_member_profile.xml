@@ -402,78 +402,7 @@
                                             android:layout_alignParentBottom="true"
                                             tools:ignore="HardcodedText,TooDeepLayout" />
                                     </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:id="@+id/rl_hori_he"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="180dp"
-                                        android:orientation="horizontal"
-                                        android:layout_alignParentTop="true"
-                                        android:layout_alignParentStart="true"
-                                        android:layout_alignParentEnd="true"
-                                        tools:ignore="UselessParent">
-
-                                        <TextView
-                                            android:id="@+id/tvHeaviest"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="80dp"
-                                            android:layout_alignParentStart="true"
-                                            android:layout_alignParentEnd="true"
-                                            android:fontFamily="@font/nunito_bold"
-                                            android:text="@string/heaviest"
-                                            android:textColor="@color/text"
-                                            android:textSize="14sp"
-                                            tools:ignore="HardcodedText,TooDeepLayout" />
-
-                                        <androidx.appcompat.widget.AppCompatTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="100.00kg"
-                                            android:fontFamily="@font/nunito_bold"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp"
-                                            android:layout_marginEnd="20dp"
-                                            android:layout_alignParentEnd="true"
-                                            android:layout_alignParentBottom="true"
-                                            tools:ignore="HardcodedText,TooDeepLayout" />
-                                    </RelativeLayout>
-
-                                    <RelativeLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginStart="180dp"
-                                        android:orientation="horizontal"
-                                        android:layout_below="@+id/rl_hori_he"
-                                        android:layout_alignParentStart="true"
-                                        android:layout_alignParentEnd="true"
-                                        tools:ignore="UselessParent">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="80dp"
-                                            android:layout_alignParentStart="true"
-                                            android:layout_alignParentEnd="true"
-                                            android:text="@string/lightest"
-                                            android:textColor="@color/text"
-                                            android:fontFamily="@font/nunito_bold"
-                                            android:textSize="14sp"
-                                            tools:ignore="HardcodedText,TooDeepLayout" />
-
-                                        <androidx.appcompat.widget.AppCompatTextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="50.00kg"
-                                            android:fontFamily="@font/nunito_bold"
-                                            android:textColor="@color/black"
-                                            android:textSize="14sp"
-                                            android:layout_marginEnd="20dp"
-                                            android:layout_alignParentEnd="true"
-                                            android:layout_alignParentBottom="true"
-                                            tools:ignore="HardcodedText,TooDeepLayout" />
-                                    </RelativeLayout>
+                                    
 
                                 </RelativeLayout>
 

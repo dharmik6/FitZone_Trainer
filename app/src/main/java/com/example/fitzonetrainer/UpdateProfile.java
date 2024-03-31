@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.bumptech.glide.Glide;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.github.drjacky.imagepicker.constant.ImageProvider;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,9 +30,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 public class UpdateProfile extends AppCompatActivity {
 
@@ -52,14 +50,6 @@ public class UpdateProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
 
-        ImageView backPress = findViewById(R.id.back);
-        backPress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-
         up_name = findViewById(R.id.up_name);
         up_phone = findViewById(R.id.up_phone);
         up_address = findViewById(R.id.up_address);
@@ -78,28 +68,22 @@ public class UpdateProfile extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String trainerId = currentUser.getUid();
 
-
-        // age spinner
         ArrayAdapter<Integer> ageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Populate the age spinner with ages from 18 to 100
         for (int i = 10; i <= 100; i++) {
             ageAdapter.add(i);
         }
         up_age.setAdapter(ageAdapter);
 
-        // gender spinner
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this,
                 R.array.gender_array, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         up_gender.setAdapter(genderAdapter);
 
-        // specialization spinner
         ArrayAdapter<CharSequence> specializationAdapter = ArrayAdapter.createFromResource(this,
                 R.array.specialization_array, android.R.layout.simple_spinner_item);
         specializationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        up_Specialization.setAdapter(specializationAdapter);
-
+        up_Specialization.setAdapter(specializationAdapter);  // Set the adapter here
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,13 +105,11 @@ public class UpdateProfile extends AppCompatActivity {
                 String age = up_age.getSelectedItem().toString().trim();
 
                 if (!name.isEmpty() && !phone.isEmpty() && !address.isEmpty() && !experience.isEmpty() && !bio.isEmpty() && !specialization.isEmpty() && !gender.isEmpty() && !age.isEmpty()) {
-                    // Show progress dialog
                     progressDialog = new ProgressDialog(UpdateProfile.this);
                     progressDialog.setMessage("Updating trainer data...");
                     progressDialog.setCancelable(false);
                     progressDialog.show();
 
-                    // Create a map to store the data
                     Map<String, Object> trainerData = new HashMap<>();
                     trainerData.put("name", name);
                     trainerData.put("number", phone);
@@ -138,38 +120,79 @@ public class UpdateProfile extends AppCompatActivity {
                     trainerData.put("gender", gender);
                     trainerData.put("age", age);
 
-                    // Upload image to Firebase Storage if an image is selected
                     if (selectedImageUri != null) {
                         uploadImageAndSaveData(trainerData, trainerId);
                     } else {
-                        // Add the data to Firestore without an image
                         saveDataToFirestore(trainerData, trainerId, null);
                     }
                 } else {
                     Toast.makeText(UpdateProfile.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Use ImagePicker to select an image from camera or gallery
                 ImagePicker.Companion.with(UpdateProfile.this)
-                        .crop()         // Enable cropping
-                        .cropOval()     // Crop shape to oval
-                        .provider(ImageProvider.BOTH) // Or bothCameraGallery()
-                        .createIntentFromDialog(new Function1<Intent, Unit>() {
-                            @Override
-                            public Unit invoke(Intent it) {
-                                startActivityForResult(it, PICK_IMAGE_REQUEST);
-                                return null;
-                            }
+                        .crop()
+                        .cropOval()
+                        .provider(ImageProvider.BOTH)
+                        .createIntentFromDialog(it -> {
+                            startActivityForResult(it, PICK_IMAGE_REQUEST);
+                            return null;
                         });
             }
         });
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            String name = intent.getStringExtra("name");
+            String phone = intent.getStringExtra("mobile");
+            String address = intent.getStringExtra("address");
+            String experience = intent.getStringExtra("experience");
+            String bio = intent.getStringExtra("bio");
+            String specialization = intent.getStringExtra("specialization");
+            String gender = intent.getStringExtra("gender");
+            String age = intent.getStringExtra("age");
+            String imageUri = intent.getStringExtra("image");
+
+
+            up_name.setText(name);
+            up_phone.setText(phone);
+            up_address.setText(address);
+            up_experience.setText(experience);
+            up_bio.setText(bio);
+
+            if (specialization != null) {
+                ArrayAdapter<CharSequence> specAdapter = (ArrayAdapter<CharSequence>) up_Specialization.getAdapter();
+                int position = specAdapter.getPosition(specialization);
+                if (position != -1) {
+                    up_Specialization.setSelection(position);
+                }
+            }
+            if (gender != null) {
+                ArrayAdapter<CharSequence> genderAdpt = (ArrayAdapter<CharSequence>) up_gender.getAdapter();
+                int position = genderAdpt.getPosition(gender);
+                if (position != -1) {
+                    up_gender.setSelection(position);
+                }
+            }
+            if (age != null) {
+                ArrayAdapter<Integer> ageAdpt = (ArrayAdapter<Integer>) up_age.getAdapter();
+                int ageValue = Integer.parseInt(age);
+                int position = ageAdpt.getPosition(ageValue);
+                if (position != -1) {
+                    up_age.setSelection(position);
+                }
+            }
+
+            if (imageUri != null) {
+                Glide.with(this)
+                        .load(imageUri)
+                        .into(up_image);
+            }
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -182,64 +205,40 @@ public class UpdateProfile extends AppCompatActivity {
     }
 
     private void uploadImageAndSaveData(final Map<String, Object> trainerData, final String trainerId) {
-        // Get reference to Firebase Storage and set the path for the image
         StorageReference imageRef = storageRef.child("trainer_images/" + trainerId);
 
-        // Upload the image to Firebase Storage
         imageRef.putFile(selectedImageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Image uploaded successfully, get the download URL
-                        imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                // Image download URL obtained, save data to Firestore
-                                String imageUrl = uri.toString();
-                                saveDataToFirestore(trainerData, trainerId, imageUrl);
-                            }
-                        });
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Error uploading image
-                        progressDialog.dismiss();
-                        Toast.makeText(UpdateProfile.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    saveDataToFirestore(trainerData, trainerId, imageUrl);
+                }))
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(UpdateProfile.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
     private void saveDataToFirestore(Map<String, Object> trainerData, String trainerId, String imageUrl) {
         if (imageUrl != null) {
-            trainerData.put("image", imageUrl); // Add the image URL to the document if it exists
+            trainerData.put("image", imageUrl);
         }
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("trainers").document(trainerId)
                 .update(trainerData)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
-                        Toast.makeText(UpdateProfile.this, "Trainer data updated successfully", Toast.LENGTH_SHORT).show();
-                        finish(); // Finish the activity
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(UpdateProfile.this, "Trainer data updated successfully", Toast.LENGTH_SHORT).show();
+                    finish();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(UpdateProfile.this, "Failed to update trainer data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                .addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(UpdateProfile.this, "Failed to update trainer data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Check if progressDialog is not null and still showing, then dismiss it
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
