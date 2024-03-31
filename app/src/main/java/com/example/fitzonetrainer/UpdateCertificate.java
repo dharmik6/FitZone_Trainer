@@ -101,17 +101,22 @@ public class UpdateCertificate extends AppCompatActivity {
 
                 // Check if name, description, and image URI are not empty
                 if (!newName.isEmpty() && !newDescription.isEmpty() && selectedImageUri != null) {
+                    // Show progress dialog
+                    progressDialog = new ProgressDialog(UpdateCertificate.this);
+                    progressDialog.setMessage("Updating certificate information...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
                     // Upload image to Firebase Storage
                     uploadImage(newName, newDescription);
                 } else {
                     // Handle empty fields or no selected image
-                    // You can show a toast message or provide some feedback to the user
+                    Toast.makeText(UpdateCertificate.this, "Please fill all fields and select an image", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-
-                                ImageView backPress = findViewById(R.id.back_press);
+        ImageView backPress = findViewById(R.id.back_press);
         backPress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +124,8 @@ public class UpdateCertificate extends AppCompatActivity {
             }
         });
     }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -127,13 +134,17 @@ public class UpdateCertificate extends AppCompatActivity {
             certificate_image.setImageURI(selectedImageUri);
         }
     }
-    private void uploadImage(final String newName, final String newDescription) {
-        // Show progress dialog
-        progressDialog = new ProgressDialog(UpdateCertificate.this);
-        progressDialog.setMessage("Uploading image...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Check if progressDialog is still visible and dismiss it
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private void uploadImage(final String newName, final String newDescription) {
         // Define a reference to the location where you want to store the new image
         String imageName = UUID.randomUUID().toString(); // Generate a unique name for the image
         StorageReference imageRef = storageRef.child("images/" + imageName); // Store images in a "images" folder
@@ -148,8 +159,6 @@ public class UpdateCertificate extends AppCompatActivity {
                         imageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                // Dismiss progress dialog
-                                progressDialog.dismiss();
                                 // Get the new image URL
                                 String newImageUrl = uri.toString();
                                 // Update Firestore document with the new image URL
@@ -208,10 +217,12 @@ public class UpdateCertificate extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
                                                     // Document updated successfully
+                                                    progressDialog.dismiss();
                                                     Toast.makeText(UpdateCertificate.this, "Certificate information updated successfully", Toast.LENGTH_SHORT).show();
                                                     finish(); // Finish the activity after successful update
                                                 } else {
                                                     // Error updating document
+                                                    progressDialog.dismiss();
                                                     Toast.makeText(UpdateCertificate.this, "Failed to update certificate information: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -227,10 +238,12 @@ public class UpdateCertificate extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                 if (task.isSuccessful()) {
                                                     // Document created successfully
+                                                    progressDialog.dismiss();
                                                     Toast.makeText(UpdateCertificate.this, "New certificate added successfully", Toast.LENGTH_SHORT).show();
                                                     finish(); // Finish the activity after successful update
                                                 } else {
                                                     // Error creating document
+                                                    progressDialog.dismiss();
                                                     Toast.makeText(UpdateCertificate.this, "Failed to add new certificate: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             }
@@ -238,10 +251,10 @@ public class UpdateCertificate extends AppCompatActivity {
                             }
                         } else {
                             // Error getting documents
+                            progressDialog.dismiss();
                             Toast.makeText(UpdateCertificate.this, "Failed to check certificate existence: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
 }
